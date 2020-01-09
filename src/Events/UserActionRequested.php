@@ -3,40 +3,33 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Events;
-
 use Illuminate\Http\Request;
 use Leantony\Grid\Grid;
 use Leantony\Grid\GridInterface;
-
+use Illuminate\Support\Arr;
 class UserActionRequested
 {
     /**
      * @var Request
      */
     public $request;
-
     /**
      * @var
      */
     public $builder;
-
     /**
      * @var Grid|GridInterface
      */
     public $grid;
-
     /**
      * @var array
      */
     public $validTableColumns;
-
     /**
      * @var array
      */
     public $args;
-
     /**
      * UserActionRequested constructor.
      * @param GridInterface $grid
@@ -51,6 +44,6 @@ class UserActionRequested
         $this->request = $request;
         $this->builder = $builder;
         $this->validTableColumns = $validTableColumns;
-        $this->args = array_collapse($args);
+        $this->args = Arr::collapse($args);
     }
 }
