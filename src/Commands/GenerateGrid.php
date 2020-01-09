@@ -3,40 +3,34 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Commands;
-
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
 use Leantony\Grid\HasGridConfigurations;
-
+use Illuminate\Support\Arr;
 class GenerateGrid extends Command
 {
     use HasGridConfigurations;
-
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'make:grid {--model=}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Generate a grid from an eloquent model.';
-
     /**
      * The namespace format for the grids
      *
      * @var string
      */
     protected $namespaceFormat = null;
-
     /**
      * Items to look for in the stub
      *
@@ -52,26 +46,22 @@ class GenerateGrid extends Command
         'binding' => '{{ binding }}',
         'modelPk' => '{{ modelPk }}',
     ];
-
     /**
      * Skip this columns. These would not be considered on the grid, regardless of fillable status or not
      *
      * @var array
      */
     protected $excludedColumns = [];
-
     /**
      * Filesystem
      *
      * @var Filesystem
      */
     protected $filesystem;
-
     /**
      * @var string
      */
     protected $binding;
-
     /**
      * GenerateGrid constructor.
      * @param Filesystem $filesystem
@@ -79,12 +69,10 @@ class GenerateGrid extends Command
     public function __construct(Filesystem $filesystem)
     {
         parent::__construct();
-
         $this->filesystem = $filesystem;
         $this->excludedColumns = $this->getGridColumnsToSkipOnGeneration();
         $this->namespaceFormat = $this->getGridNamespace();
     }
-
     /**
      * Execute the console command.
      *
@@ -95,26 +83,18 @@ class GenerateGrid extends Command
     public function handle()
     {
         $stub = $this->getStubContents();
-
         $suppliedModel = $this->getModelOption();
-
         if ($suppliedModel === null) {
-
             $this->error("Please supply a model name.");
             die(-1);
         }
-
         list($model, $rows) = $this->generateRows($suppliedModel);
-
         // binding
         list($namespace, $replaced, $filename) = $this->dumpBinding($model);
-
         // class
         $this->dumpClass($model, $rows, $stub);
-
         return true;
     }
-
     /**
      * Get stub contents
      *
@@ -126,7 +106,6 @@ class GenerateGrid extends Command
         $stub = $this->filesystem->get($this->getStub());
         return $stub;
     }
-
     /**
      * Get the stub file for the generator.
      *
@@ -136,7 +115,6 @@ class GenerateGrid extends Command
     {
         return __DIR__ . '/../Stubs/Grid.txt';
     }
-
     /**
      * Get the model to be used
      *
@@ -147,7 +125,6 @@ class GenerateGrid extends Command
         $model = trim($this->option('model'));
         return $model;
     }
-
     /**
      * Generate grid rows for this model
      *
@@ -158,34 +135,24 @@ class GenerateGrid extends Command
     protected function generateRows($model)
     {
         $columns = [];
-
         $model = app($model);
-
         if (!$model instanceof Model) {
-
             $this->error("Invalid model supplied.");
-
             die(-1);
         }
-
         // primary key
         $model->getKeyName();
-
         // cols
         $columns = array_merge($columns, [$model->getKeyName()]);
-
         // use only fillable cols
         $columns = array_merge($columns, $model->getFillable());
-
         // timestamps. skip updated_at
         if ($model->timestamps) {
             $columns = array_merge($columns, [$model->getCreatedAtColumn()]);
         }
-
         // skip column exclusions
         $rows = collect($columns)->reject(function ($v) {
             return in_array($v, $this->excludedColumns);
-
         })->map(function ($columnName) {
             if ($columnName === 'id') {
                 // a pk
@@ -246,12 +213,9 @@ class GenerateGrid extends Command
                 }
             }
         });
-
         $this->info("Grid generated shall render " . $rows->count() . ' rows for model ' . class_basename($model));
-
         return [$model, $rows->collapse()->toArray()];
     }
-
     /**
      * Dump the binding class
      *
@@ -262,28 +226,18 @@ class GenerateGrid extends Command
     protected function dumpBinding($model): array
     {
         $stub = __DIR__ . '/../Stubs/GridInterface.txt';
-
         list($namespace, $interfaceName, $replaced) = $this->makeReplacementsForBinding($model,
             $this->generateDynamicNamespace(), $stub);
-
         $this->binding = $interfaceName;
-
         $filename = $this->makeFileName($interfaceName);
-
         $path = $this->getPath($namespace);
-
         if ($this->dumpFile($path, $filename, $replaced)) {
-
             $this->info("Wrote generated binding to " . $path);
-
         } else {
-
             $this->info("skipped overwriting existing binding at " . $path);
         }
-
         return array($namespace, $replaced, $filename);
     }
-
     /**
      * Make replacements
      *
@@ -295,15 +249,12 @@ class GenerateGrid extends Command
     protected function makeReplacementsForBinding($model, $namespace, $stub): array
     {
         $interfaceName = Str::studly($model->getTable()) . 'GridInterface';
-
         $replaced = str_replace(['{{ namespace }}', '{{ name }}'], [
             $namespace,
             $interfaceName
         ], $this->filesystem->get($stub));
-
         return array($namespace, $interfaceName, $replaced);
     }
-
     /**
      * Generate dynamic namespace for the file
      *
@@ -313,7 +264,6 @@ class GenerateGrid extends Command
     {
         return $this->namespaceFormat;
     }
-
     /**
      * Make a name for the file
      *
@@ -324,7 +274,6 @@ class GenerateGrid extends Command
     {
         return $filename . '.php';
     }
-
     /**
      * Get the destination class path.
      *
@@ -336,10 +285,8 @@ class GenerateGrid extends Command
         // since app_path would take care of the 'app' part
         // we ignore it here
         $name = str_replace("App", "", $name);
-
         return app_path() . str_replace('\\', '/', $name);
     }
-
     /**
      * Dump the file generated
      *
@@ -351,27 +298,18 @@ class GenerateGrid extends Command
     protected function dumpFile($path, $filename, $contents)
     {
         $this->makeDirectory($path);
-
         $dumpPath = $path . DIRECTORY_SEPARATOR . $filename;
-
         if ($this->filesystem->exists($dumpPath)) {
-
             if (($this->confirm(sprintf('Overwrite file at %s ? [yes|no]', $dumpPath), 'no'))) {
-
                 $this->filesystem->put($dumpPath, $contents);
-
                 return true;
             }
             return false;
-
         } else {
-
             $this->filesystem->put($dumpPath, $contents);
-
             return true;
         }
     }
-
     /**
      * Build the directory for the class if necessary.
      *
@@ -383,10 +321,8 @@ class GenerateGrid extends Command
         if (!$this->filesystem->isDirectory($path)) {
             $this->filesystem->makeDirectory($path, 0777, true, true);
         }
-
         return $path;
     }
-
     /**
      * Dump the generated grid class
      *
@@ -397,22 +333,14 @@ class GenerateGrid extends Command
     protected function dumpClass($model, $rows, $stub)
     {
         list($namespace, $tableName, $replaced) = $this->makeReplacements($model, $rows, $stub);
-
         $filename = $this->makeFileName($tableName . 'Grid');
-
         $path = $this->getPath($namespace);
-
         if ($this->dumpFile($path, $filename, $replaced)) {
-
             $this->info("Wrote generated grid to " . $path);
-
         } else {
-
             $this->info('Skipped overwriting existing grid at ' . $path);
         }
-
     }
-
     /**
      * Make replacements
      *
@@ -424,13 +352,10 @@ class GenerateGrid extends Command
     protected function makeReplacements($model, $rows, $stub): array
     {
         $namespace = $this->generateDynamicNamespace();
-
         $modelName = Str::plural(ucfirst(class_basename($model)));
         $tableName = Str::studly($model->getTable());
         $routeRoot = Str::plural(strtolower(class_basename($model)));
-
         $contents = $this->replaceRows($rows, $stub);
-
         $replaced = $this->replaceOtherContent([
             'namespace' => $namespace,
             'modelName' => $modelName,
@@ -439,10 +364,8 @@ class GenerateGrid extends Command
             'binding' => $this->binding,
             'modelPk' => $model->getKeyName(),
         ], $contents);
-
         return array($namespace, $tableName, $replaced);
     }
-
     /**
      * Replace the row section of the stub
      *
@@ -456,7 +379,6 @@ class GenerateGrid extends Command
         $this->info("Exported rows successfully...");
         return $value;
     }
-
     /**
      * Replace content in the stub
      *
@@ -466,7 +388,7 @@ class GenerateGrid extends Command
      */
     protected function replaceOtherContent(array $replacements, &$stub)
     {
-        $replaced = str_replace(array_values(array_except($this->searches, 'rows')), [
+        $replaced = str_replace(array_values(Arr::except($this->searches, 'rows')), [
             $replacements['namespace'],
             $replacements['modelName'],
             $replacements['tableName'],
@@ -475,9 +397,7 @@ class GenerateGrid extends Command
             $replacements['binding'],
             $replacements['modelPk']
         ], $stub);
-
         $this->info("Finished performing replacements to the stub files...");
-
         return $replaced;
     }
 }
