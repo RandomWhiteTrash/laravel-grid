@@ -3,13 +3,11 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Filters;
-
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-
+use Illuminate\Support\Arr;
 class GenericFilter implements Htmlable
 {
     /**
@@ -18,49 +16,42 @@ class GenericFilter implements Htmlable
      * @var string
      */
     protected $name;
-
     /**
      * The html ID of the element
      *
      * @var string
      */
     protected $id;
-
     /**
      * If the filter is enabled
      *
      * @var bool
      */
     protected $enabled = true;
-
     /**
      * The title of the html element
      *
      * @var string
      */
     protected $title;
-
     /**
      * The class of the html element
      *
      * @var string
      */
     protected $class = 'form-control grid-filter';
-
     /**
      * A custom function that will be used to render the filter
      *
      * @var callable
      */
     protected $renderCustom = null;
-
     /**
      * The type of filter. While there are no hardcoded elements that suit the filter, text is a sensible default
      *
      * @var string
      */
     protected $type = 'text';
-
     /**
      * The name of the form attached to this element. Defaults to the filter form ID
      * @see https://stackoverflow.com/questions/5967564/form-inside-a-table
@@ -68,21 +59,18 @@ class GenericFilter implements Htmlable
      * @var string
      */
     protected $formId = 'leantony-grid-filter';
-
     /**
      * The data to be used for filtering. Essential if the element is a dropdown
      *
      * @var array|Collection
      */
     protected $data = null;
-
     /**
      * Any HTML5 data attributes for the element
      *
      * @var array
      */
     protected $dataAttributes = [];
-
     /**
      * GenericFilter constructor.
      * @param array $params
@@ -94,7 +82,6 @@ class GenericFilter implements Htmlable
             $this->__set($k, $v);
         }
     }
-
     /**
      * Get a class attribute
      *
@@ -108,7 +95,6 @@ class GenericFilter implements Htmlable
         }
         throw new InvalidArgumentException("The property " . $name . " does not exist on " . get_called_class());
     }
-
     /**
      * Set class attributes
      *
@@ -119,7 +105,6 @@ class GenericFilter implements Htmlable
     {
         $this->{$name} = $value;
     }
-
     /**
      * @return string
      * @throws \Exception
@@ -129,7 +114,6 @@ class GenericFilter implements Htmlable
     {
         return $this->toHtml();
     }
-
     /**
      * Get content as a string of HTML.
      *
@@ -141,7 +125,6 @@ class GenericFilter implements Htmlable
     {
         return $this->render();
     }
-
     /**
      * Render the filter
      *
@@ -159,17 +142,16 @@ class GenericFilter implements Htmlable
                 // all filters apart from dropdowns are rendered as text elements.
                 // css classes or js libraries can be used to change this
                 return view('leantony::grid.filters.text', $this->compactData(
-                    array_collapse(func_get_args())
+                    Arr::collapse(func_get_args())
                 ))->render();
             case 'select':
                 return view('leantony::grid.filters.dropdown', $this->compactData(
-                    array_collapse(func_get_args())
+                    Arr::collapse(func_get_args())
                 ))->render();
             default:
                 throw new \Exception("Unknown filter type.");
         }
     }
-
     /**
      * Specify the data to be sent to the view
      *
@@ -183,7 +165,6 @@ class GenericFilter implements Htmlable
         }
         return get_object_vars($this);
     }
-
     /**
      * Allow extra parameters to be added on this object
      *
@@ -193,7 +174,6 @@ class GenericFilter implements Htmlable
     {
         return [];
     }
-
     /**
      * @return string
      */
@@ -201,7 +181,6 @@ class GenericFilter implements Htmlable
     {
         return $this->formId;
     }
-
     /**
      * @param string $formId
      * @return GenericFilter
@@ -211,7 +190,6 @@ class GenericFilter implements Htmlable
         $this->formId = $formId;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -219,7 +197,6 @@ class GenericFilter implements Htmlable
     {
         return $this->name;
     }
-
     /**
      * @param string $name
      * @return GenericFilter
@@ -229,7 +206,6 @@ class GenericFilter implements Htmlable
         $this->name = $name;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -237,7 +213,6 @@ class GenericFilter implements Htmlable
     {
         return $this->id;
     }
-
     /**
      * @param string $id
      * @return GenericFilter
@@ -247,7 +222,6 @@ class GenericFilter implements Htmlable
         $this->id = $id;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -255,7 +229,6 @@ class GenericFilter implements Htmlable
     {
         return $this->title;
     }
-
     /**
      * @param string $title
      * @return GenericFilter
@@ -265,7 +238,6 @@ class GenericFilter implements Htmlable
         $this->title = $title;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -273,7 +245,6 @@ class GenericFilter implements Htmlable
     {
         return $this->class;
     }
-
     /**
      * @param string $class
      * @return GenericFilter
