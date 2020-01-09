@@ -3,17 +3,13 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Listeners;
-
 use Illuminate\Http\Request;
 use Leantony\Grid\GridInterface;
 use Leantony\Grid\GridResources;
-
 class RowFilterHandler
 {
     use GridResources;
-
     /**
      * RowFilterHandler constructor.
      * @param GridInterface $grid
@@ -30,7 +26,6 @@ class RowFilterHandler
         $this->validGridColumns = $validTableColumns;
         $this->args = $data;
     }
-
     /**
      * Filter the grid rows
      *
@@ -41,7 +36,6 @@ class RowFilterHandler
         if (!empty($this->request->query())) {
             $columns = $this->getGrid()->getColumns();
             $tableColumns = $this->getValidGridColumns();
-
             foreach ($columns as $columnName => $columnData) {
                 // skip rows that are not to be filtered
                 if (!$this->canFilter($columnName, $columnData)) {
@@ -56,12 +50,10 @@ class RowFilterHandler
                     continue;
                 }
                 $operator = $this->extractFilterOperator($columnName, $columnData)['operator'];
-
-                $this->doFilter($columnName, $columnData, $operator, $this->getRequest()->get($columnName));
+                $this->doFilter($this->tableColumnName($columnName, $columnData), $columnData, $operator, $this->getRequest()->get($columnName));
             }
         }
     }
-
     /**
      * Check if filtering can be done
      *
@@ -73,7 +65,6 @@ class RowFilterHandler
     {
         return isset($columnData['filter']) && $columnData['filter']['enabled'] ?? false;
     }
-
     /**
      * Check if provided user input can be used
      *
@@ -88,7 +79,6 @@ class RowFilterHandler
         }
         return true;
     }
-
     /**
      * Check if the provided column can be used
      *
@@ -100,7 +90,6 @@ class RowFilterHandler
     {
         return in_array($columnName, $validColumns);
     }
-
     /**
      * Extract filter operator
      *
@@ -113,7 +102,23 @@ class RowFilterHandler
         $operator = $columnData['filter']['operator'] ?? '=';
         return compact('operator');
     }
-
+    /**
+     * Check if table column name is set.
+     *
+     * @param string $columnName
+     * @param array $columnData
+     * @return string
+     */
+    public function tableColumnName(string $columnName, array $columnData)
+    {
+        if (isset($columnData['table_column_name'])) {
+            $columnName = $columnData['table_column_name'];
+        }
+        else {
+            $columnName;
+        }
+        return $columnName;
+    }
     /**
      * Filter the data
      *
@@ -131,13 +136,11 @@ class RowFilterHandler
         if (isset($filter['query']) && is_callable($filter['query'])) {
             call_user_func($filter['query'], $this->getQuery(), $columnName, $userInput);
         } else {
-
             if ($operator === strtolower('like')) {
                 $value = '%' . $userInput . '%';
             } else {
                 $value = $userInput;
             }
-
             if (isset($filter['type']) && ($filter['type'] === 'daterange' && $filter['enabled'] === true)) {
                 // check for date range values
                 $exploded = explode(' - ', $value, 2);
