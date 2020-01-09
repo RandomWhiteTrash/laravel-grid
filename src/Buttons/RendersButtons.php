@@ -3,11 +3,10 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Buttons;
-
 use InvalidArgumentException;
-
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 trait RendersButtons
 {
     /**
@@ -16,21 +15,18 @@ trait RendersButtons
      * @var bool
      */
     protected $renderButtons = true;
-
     /**
      * Buttons on the rows of the grid
      *
      * @var string
      */
     protected static $TYPE_ROW = 'rows';
-
     /**
      * Buttons on the toolbar of the grid
      *
      * @var string
      */
     protected static $TYPE_TOOLBAR = 'toolbar';
-
     /**
      * List of default buttons to be generated on the grid. If you need to add custom buttons
      * use `addRowButton`, `addToolBarButton` or `addCustomButton`
@@ -50,7 +46,6 @@ trait RendersButtons
         'refresh',
         'export'
     ];
-
     /**
      * Configure rendered buttons, if need be.
      * For example, within this function, you can call `addButton()` to add a button to the grid
@@ -59,7 +54,6 @@ trait RendersButtons
      * @return void
      */
     abstract public function configureButtons();
-
     /**
      * Sets an array of buttons that would be rendered to the grid
      *
@@ -70,7 +64,6 @@ trait RendersButtons
     {
         $this->setDefaultButtons();
     }
-
     /**
      * Set default buttons for the grid
      *
@@ -92,7 +85,6 @@ trait RendersButtons
             ]
         ];
     }
-
     /**
      * Add a create button to the grid
      *
@@ -115,7 +107,6 @@ trait RendersButtons
             }
         ]));
     }
-
     /**
      * Add a refresh button to the grid
      *
@@ -138,7 +129,6 @@ trait RendersButtons
             }
         ]));
     }
-
     /**
      * Add an export button to the grid
      *
@@ -163,7 +153,6 @@ trait RendersButtons
             }
         ]));
     }
-
     /**
      * Add a view button to the grid
      *
@@ -190,7 +179,6 @@ trait RendersButtons
             }
         ]));
     }
-
     /**
      * Add a delete button to the grid
      *
@@ -222,7 +210,6 @@ trait RendersButtons
             }
         ]));
     }
-
     /**
      * Get an array of button instances to be rendered on the grid
      *
@@ -237,7 +224,6 @@ trait RendersButtons
             return $v->position;
         })->toArray();
     }
-
     /**
      * Check if the grid has any buttons
      *
@@ -251,9 +237,8 @@ trait RendersButtons
             return false;
         }
         // no buttons on section
-        return count(array_get($this->buttons, $section, [])) === 0 ? false : true;
+        return count(Arr::get($this->buttons, $section, [])) === 0 ? false : true;
     }
-
     /**
      * Clear the buttons on a specific section
      *
@@ -264,7 +249,6 @@ trait RendersButtons
     {
         $this->buttons[$section] = [];
     }
-
     /**
      * Clear all buttons
      *
@@ -274,7 +258,6 @@ trait RendersButtons
     {
         $this->buttons = [];
     }
-
     /**
      * Add a custom button to the grid
      *
@@ -294,7 +277,6 @@ trait RendersButtons
         }
         return $this->buttons[$position][$key];
     }
-
     /**
      * Add a custom button key to the array
      *
@@ -303,9 +285,8 @@ trait RendersButtons
      */
     protected function makeButtonKey(string $name)
     {
-        return str_slug($name);
+        return Str::slug($name);
     }
-
     /**
      * Add a button on the grid toolbar section
      *
@@ -318,7 +299,6 @@ trait RendersButtons
     {
         $this->addButton(static::$TYPE_TOOLBAR, $button, $instance);
     }
-
     /**
      * Add a button to the grid
      *
@@ -334,7 +314,6 @@ trait RendersButtons
             static::$TYPE_TOOLBAR,
             static::$TYPE_ROW,
         ];
-
         if (!in_array($target, $targets)) {
             throw new InvalidArgumentException(sprintf("Invalid target supplied. Expects value in array => %s", json_encode($targets)));
         }
@@ -344,7 +323,6 @@ trait RendersButtons
             ]
         ]);
     }
-
     /**
      * Add a button on the grid rows section
      *
@@ -357,7 +335,6 @@ trait RendersButtons
     {
         $this->addButton(static::$TYPE_ROW, $button, $instance);
     }
-
     /**
      * Edit an existing button
      *
@@ -369,14 +346,11 @@ trait RendersButtons
     protected function editButtonProperties($target, $buttonName, array $properties)
     {
         $instance = $this->buttons[$target][$this->makeButtonKey($buttonName)];
-
         $this->ensureButtonInstanceValidity($instance);
-
         foreach ($properties as $k => $v) {
             $instance->{$k} = $v;
         }
     }
-
     /**
      * Check button availability and validity
      *
@@ -388,7 +362,6 @@ trait RendersButtons
             throw new InvalidArgumentException(sprintf("The button %s could not be found or is invalid.", $button));
         }
     }
-
     /**
      * Edit an existing button on the grid rows
      *
@@ -400,7 +373,6 @@ trait RendersButtons
     {
         $this->editButtonProperties(static::$TYPE_ROW, $button, $properties);
     }
-
     /**
      * Edit an existing button on the grid toolbar
      *
