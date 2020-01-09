@@ -3,12 +3,10 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Buttons;
-
 use Illuminate\Contracts\Support\Htmlable;
 use InvalidArgumentException;
-
+use Illuminate\Support\Arr;
 class GenericButton implements Htmlable
 {
     /**
@@ -21,90 +19,77 @@ class GenericButton implements Htmlable
      * @var integer
      */
     public $position = null;
-
     /**
      * A function with a boolean return type that would be called before a button is rendered
      *
      * @var callable
      */
     public $renderIf = null;
-
     /**
      * Specify a custom way to render the button
      *
      * @var callable
      */
     public $renderCustom = null;
-
     /**
      * The link of the button
      *
      * @var string|callable
      */
     public $url = '#';
-
     /**
      * The buttons name
      *
      * @var string
      */
     public $name = 'Unknown';
-
     /**
      * The buttons ability to support pjax
      *
      * @var bool
      */
     public $pjaxEnabled = false;
-
     /**
      * The classes for the button
      *
      * @var string
      */
     public $class = 'btn btn-info';
-
     /**
      * The icon to be displayed, if any
      *
      * @var null
      */
     public $icon = null;
-
     /**
      * If a modal should be displayed
      *
      * @var bool
      */
     public $showModal = false;
-
     /**
      * The title of the button
      *
      * @var string
      */
     public $title = '';
-
     /**
      * Any available data attributes
      *
      * @var array
      */
     public $dataAttributes = [];
-
     /**
      * The id of the grid in question. Will be used for PJAX
      *
      * @var string
      */
     protected $gridId;
-
     /**
      * Type of button. Can be one of either `rows` or `toolbar`
      * @var string
      */
     protected $type = 'toolbar';
-
     /**
      * CreateButton constructor.
      * @param array $params
@@ -115,7 +100,6 @@ class GenericButton implements Htmlable
             $this->__set($k, $v);
         }
     }
-
     /**
      * Get a class attribute
      *
@@ -130,7 +114,6 @@ class GenericButton implements Htmlable
         }
         throw new InvalidArgumentException("The property " . $name . " does not exist on " . get_called_class());
     }
-
     /**
      * Set a class attribute
      *
@@ -141,7 +124,6 @@ class GenericButton implements Htmlable
     {
         $this->{$name} = $value;
     }
-
     /**
      * @return callable
      */
@@ -149,7 +131,6 @@ class GenericButton implements Htmlable
     {
         return $this->renderIf;
     }
-
     /**
      * @param callable $renderIf
      * @return GenericButton
@@ -159,7 +140,6 @@ class GenericButton implements Htmlable
         $this->renderIf = $renderIf;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -167,7 +147,6 @@ class GenericButton implements Htmlable
     {
         return $this->type;
     }
-
     /**
      * @param string $type
      * @return GenericButton
@@ -177,7 +156,6 @@ class GenericButton implements Htmlable
         $this->type = $type;
         return $this;
     }
-
     /**
      * @return callable
      */
@@ -185,7 +163,6 @@ class GenericButton implements Htmlable
     {
         return $this->renderCustom;
     }
-
     /**
      * @param callable $renderCustom
      * @return GenericButton
@@ -195,7 +172,6 @@ class GenericButton implements Htmlable
         $this->renderCustom = $renderCustom;
         return $this;
     }
-
     /**
      * @return string|callable
      */
@@ -203,7 +179,6 @@ class GenericButton implements Htmlable
     {
         return $this->url;
     }
-
     /**
      * @param string|callable $url
      * @return GenericButton
@@ -213,7 +188,6 @@ class GenericButton implements Htmlable
         $this->url = $url;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -221,7 +195,6 @@ class GenericButton implements Htmlable
     {
         return $this->name;
     }
-
     /**
      * @param string $name
      * @return GenericButton
@@ -231,7 +204,6 @@ class GenericButton implements Htmlable
         $this->name = $name;
         return $this;
     }
-
     /**
      * @return string|null
      */
@@ -239,7 +211,6 @@ class GenericButton implements Htmlable
     {
         return $this->icon;
     }
-
     /**
      * @param string $icon
      * @return GenericButton
@@ -249,7 +220,6 @@ class GenericButton implements Htmlable
         $this->icon = $icon;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -257,7 +227,6 @@ class GenericButton implements Htmlable
     {
         return $this->title;
     }
-
     /**
      * @param string $title
      * @return GenericButton
@@ -267,7 +236,6 @@ class GenericButton implements Htmlable
         $this->title = $title;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -275,7 +243,6 @@ class GenericButton implements Htmlable
     {
         return $this->position;
     }
-
     /**
      * @param string $position
      * @return GenericButton
@@ -285,7 +252,6 @@ class GenericButton implements Htmlable
         $this->position = $position;
         return $this;
     }
-
     /**
      * @return bool
      */
@@ -293,7 +259,6 @@ class GenericButton implements Htmlable
     {
         return $this->pjaxEnabled;
     }
-
     /**
      * @param bool $pjaxEnabled
      * @return GenericButton
@@ -303,7 +268,6 @@ class GenericButton implements Htmlable
         $this->pjaxEnabled = $pjaxEnabled;
         return $this;
     }
-
     /**
      * @return string
      * @throws \Throwable
@@ -312,7 +276,6 @@ class GenericButton implements Htmlable
     {
         return $this->toHtml();
     }
-
     /**
      * Get content as a string of HTML.
      *
@@ -323,7 +286,6 @@ class GenericButton implements Htmlable
     {
         return $this->render();
     }
-
     /**
      * Render the button
      *
@@ -335,10 +297,8 @@ class GenericButton implements Htmlable
     {
         // apply preset attributes
         $this->dataAttributes = $this->getDataAttributes();
-
         // check if modal is needed, and adjust the class attribute
         $this->isShowModal() ? $this->setClass($this->getClass() . ' show_modal_form') : false;
-
         // can render
         if (!is_callable($this->renderIf)) {
             $this->renderIf = function () {
@@ -349,14 +309,11 @@ class GenericButton implements Htmlable
         if ($this->renderCustom && is_callable($this->renderCustom)) {
             return call_user_func($this->renderCustom, $this->compactData($args));
         }
-
         // collapse the array of args into a single 1d array, so that the values passed can be
         // accessed as key value pair
-        $args = array_collapse($args);
-
+        $args = Arr::collapse($args);
         return view($this->getButtonView(), $this->compactData($args))->render();
     }
-
     /**
      * @return array
      */
@@ -371,7 +328,6 @@ class GenericButton implements Htmlable
         }
         return $this->dataAttributes;
     }
-
     /**
      * @param array $dataAttributes
      * @return GenericButton
@@ -381,7 +337,6 @@ class GenericButton implements Htmlable
         $this->dataAttributes = $dataAttributes;
         return $this;
     }
-
     /**
      * @return mixed
      */
@@ -389,7 +344,6 @@ class GenericButton implements Htmlable
     {
         return $this->gridId;
     }
-
     /**
      * @param mixed $gridId
      * @return GenericButton
@@ -399,7 +353,6 @@ class GenericButton implements Htmlable
         $this->gridId = $gridId;
         return $this;
     }
-
     /**
      * @return bool
      */
@@ -407,7 +360,6 @@ class GenericButton implements Htmlable
     {
         return $this->showModal;
     }
-
     /**
      * @param bool $showModal
      * @return GenericButton
@@ -417,7 +369,6 @@ class GenericButton implements Htmlable
         $this->showModal = $showModal;
         return $this;
     }
-
     /**
      * @return string
      */
@@ -425,7 +376,6 @@ class GenericButton implements Htmlable
     {
         return $this->class;
     }
-
     /**
      * @param string $class
      * @return GenericButton
@@ -435,7 +385,6 @@ class GenericButton implements Htmlable
         $this->class = $class;
         return $this;
     }
-
     /**
      * Specify the data to be sent to the view
      *
@@ -449,7 +398,6 @@ class GenericButton implements Htmlable
         }
         return get_object_vars($this);
     }
-
     /**
      * Allow extra parameters to be added on this object
      *
@@ -459,7 +407,6 @@ class GenericButton implements Htmlable
     {
         return [];
     }
-
     /**
      * Return the view name used to render the button
      *
