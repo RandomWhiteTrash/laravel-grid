@@ -3,9 +3,7 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-
 namespace Leantony\Grid\Listeners;
-
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -19,32 +17,27 @@ use Leantony\Grid\Export\JsonExport;
 use Leantony\Grid\Export\PdfExport;
 use Leantony\Grid\GridInterface;
 use Leantony\Grid\GridResources;
-
 class DataExportHandler
 {
     use GridResources;
-
     /**
      * Quick toggle to specify if the grid allows exporting of records
      *
      * @var bool
      */
     protected $allowsExporting = true;
-
     /**
      * The filename that would be exported
      *
      * @var string
      */
     protected $exportFilename;
-
     /**
      * Available columns for export
      *
      * @var array|null
      */
     protected $availableColumnsForExport = null;
-
     /**
      * DataExportHandler constructor.
      * @param GridInterface $grid
@@ -61,7 +54,6 @@ class DataExportHandler
         $this->validGridColumns = $validTableColumns;
         $this->args = $args;
     }
-
     /**
      * Export the data
      *
@@ -78,7 +70,6 @@ class DataExportHandler
             }
         }
     }
-
     /**
      * Check if the user wants to export data
      *
@@ -88,7 +79,6 @@ class DataExportHandler
     {
         return $this->getRequest()->has($this->getGrid()->getGridExportParam()) && $this->allowsExporting;
     }
-
     /**
      * Download export data
      *
@@ -116,7 +106,6 @@ class DataExportHandler
                     $headings = $columns->map(function ($col) {
                         return $col->name;
                     })->toArray();
-
                     return (new ExcelExport([
                         'title' => $this->getGrid()->getName(),
                         'columns' => $columns,
@@ -143,7 +132,6 @@ class DataExportHandler
                 throw new \InvalidArgumentException("unknown export type");
         }
     }
-
     /**
      * Get exportable columns by skipping the ones that were not requested
      *
@@ -155,7 +143,6 @@ class DataExportHandler
         if ($this->availableColumnsForExport !== null) {
             return $this->availableColumnsForExport;
         }
-
         $pinch = [];
         $availableColumns = $this->getColumnsToExport();
         $columns = collect($availableColumns)->reject(function ($column) use (&$pinch) {
@@ -170,7 +157,6 @@ class DataExportHandler
         $this->availableColumnsForExport = [$pinch, $columns];
         return $this->availableColumnsForExport;
     }
-
     /**
      * Gets the columns to be exported
      *
@@ -181,7 +167,6 @@ class DataExportHandler
     {
         return $this->getGrid()->getProcessedColumns();
     }
-
     /**
      * Filename for export
      *
@@ -192,7 +177,6 @@ class DataExportHandler
         $this->exportFilename = Str::slug($this->getGrid()->getName()) . '-' . time();
         return $this->exportFilename;
     }
-
     /**
      * Get the data to be exported
      *
@@ -205,18 +189,21 @@ class DataExportHandler
         // in some special cases, we would need to preserve key names as they were on the model itself
         // for example, exporting data as JSON
         $doNotFormatKeys = $params['doNotFormatKeys'] ?? false;
-
         // the pinch contains the columns the user wants to export as per their configuration
         // the columns are the actual processed column objects
         list($pinch, $columns) = $this->getExportableColumns();
-
         $records = [];
-
+        // Update to correct column name if set in settings.
+        $columnsInGrid = $this->getGrid()->getColumns();
+        foreach ($pinch as $key => $columnName) {
+            if (isset($columnsInGrid[$columnName])) {
+                $pinch[$key] = $this->tableColumnName($columnName, $columnsInGrid[$columnName]);
+            }
+        }
         $query = $this->getQuery();
         if ($this->getGridStrictExportStatus() === true) {
             $query = $this->getQuery()->select($pinch);
         }
-
         // we process the query columns in chunks of a configured size
         $query->chunk($this->getGridExportQueryChunkSize(), function ($items) use ($columns, $params, $doNotFormatKeys, &$records) {
             // we run a map over each item from the chunk and run a formatter function over it
@@ -229,10 +216,8 @@ class DataExportHandler
             // once we are done, we add the data to the array
             $records[] = $data->toArray();
         });
-
         return collect($records)->collapse();
     }
-
     /**
      * Format data for export
      *
@@ -257,8 +242,24 @@ class DataExportHandler
                 return [$key => $value];
             }
         });
-
         // collapse the data to a 1d array
         return $data->collapse()->toArray();
+    }
+    /**
+     * Check if table column name is set.
+     *
+     * @param string $columnName
+     * @param array $columnData
+     * @return string
+     */
+    public function tableColumnName(string $columnName, array $columnData)
+    {
+        if (isset($columnData['table_column_name'])) {
+            $columnName = $columnData['table_column_name'] . ' AS ' . $columnName;
+        }
+        else {
+            $columnName;
+        }
+        return $columnName;
     }
 }
