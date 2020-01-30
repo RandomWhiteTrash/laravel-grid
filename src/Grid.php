@@ -112,6 +112,13 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     protected $tableColumns = [];
 
     /**
+     * Name of the table. If not present it will be deduced from the grid name. Set if you are using unorthodox table names (say singular)
+     * 
+     * @var string
+     */
+    protected $tableName;
+    
+    /**
      * Create the grid
      *
      * @param array $params
@@ -224,7 +231,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     public function getTableColumns()
     {
         if (empty($this->tableColumns)) {
-            $cols = Schema::getColumnListing(call_user_func($this->getGridDatabaseTable()));
+            $cols = Schema::getColumnListing($this->getGridDatabaseTable());
             $rejects = $this->getGridColumnsToSkipOnFilter();
             $this->tableColumns = collect($cols)->reject(function ($v) use ($rejects) {
                 return in_array($v, $rejects);
@@ -240,6 +247,10 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
      */
     public function getGridDatabaseTable()
     {
+        if (!empty($this->tableName)) {
+            return $this->tableName;
+        }
+        
         $gridName = $this->name;
         return function () use ($gridName) {
             return Str::plural(Str::slug($gridName, '_'));
