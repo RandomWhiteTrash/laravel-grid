@@ -430,6 +430,7 @@ const _grids = _grids || {};
           const btnHtml = btn.html();
           const modalDialog = $('#bootstrap_modal');
           const modalSize = btn.data('modal-size');
+          const modalBackdrop = btn.data('modal-backdrop')?btn.data('modal-backdrop'):true;
           // show spinner as soon as user click is triggered
           btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
 
@@ -437,7 +438,7 @@ const _grids = _grids || {};
           $('.modal-content').
               load($(this).attr('href') || $(this).data('href'), () => {
                 // show the modal
-                $('#bootstrap_modal').modal({ show: true, backdrop: 'static' });
+                $('#bootstrap_modal').modal({ show: true, backdrop: modalBackdrop});
                 // alter size
                 if (modalSize) {
                   $('.modal-content').parent('div').addClass(modalSize);
