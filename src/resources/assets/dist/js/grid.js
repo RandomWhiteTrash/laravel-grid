@@ -457,7 +457,7 @@ var _grids = _grids || {};
             // load the modal into the container put on the html
             $('.modal-content').load($(this).attr('href') || $(this).data('href'), function () {
               // show the modal
-              $('#bootstrap_modal').modal({ show: true });
+              $('#bootstrap_modal').modal({ show: true, backdrop: 'static' });
               // alter size
               if (modalSize) {
                 $('.modal-content').parent('div').addClass(modalSize);

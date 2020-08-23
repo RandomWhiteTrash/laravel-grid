@@ -268,7 +268,7 @@ trait RendersButtons
      */
     protected function makeCustomButton(array $properties, $position = null): GenericButton
     {
-        $key = $properties['name'] ?? 'unknown';
+        $key = $properties['buttonId'] ?? ($properties['name'] ?? 'unknown');
         $position = $position ?? static::$TYPE_TOOLBAR;
         if ($position === static::$TYPE_TOOLBAR) {
             $this->addToolbarButton($key, new GenericButton(array_merge($properties, ['type' => $position])));

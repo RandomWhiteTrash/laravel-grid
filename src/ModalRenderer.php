@@ -24,8 +24,8 @@ class ModalRenderer
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function end()
+    public function end($data = null)
     {
-        return view('leantony::modal.modal-partial-end');
+        return view($data['modal-partial-end-view']??'leantony::modal.modal-partial-end');
     }
 }

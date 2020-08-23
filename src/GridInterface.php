@@ -105,4 +105,6 @@ interface GridInterface
      * @return Closure
      */
     public function getRowCssStyle(): Closure;
+
+    public function renderTabs(): string;
 }

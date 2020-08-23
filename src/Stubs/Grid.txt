@@ -15,6 +15,13 @@ class {{ model }}Grid extends Grid implements {{ binding }}
     protected $name = '{{ tablename }}';
 
     /**
+     * The name of the grid
+     *
+     * @var string
+     */
+    protected $tableName = '{{ tablename }}';
+
+    /**
      * List of buttons to be generated on the grid
      *
      * @var array

@@ -113,11 +113,11 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
 
     /**
      * Name of the table. If not present it will be deduced from the grid name. Set if you are using unorthodox table names (say singular)
-     * 
+     *
      * @var string
      */
     protected $tableName;
-    
+
     /**
      * Create the grid
      *
@@ -250,7 +250,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         if (!empty($this->tableName)) {
             return $this->tableName;
         }
-        
+
         $gridName = $this->name;
         return function () use ($gridName) {
             return Str::plural(Str::slug($gridName, '_'));
