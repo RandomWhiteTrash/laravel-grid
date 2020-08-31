@@ -1,8 +1,14 @@
 </div>
 
 <!-- Modal footer -->
+@if ($modal['footer-render'])
 <div class="modal-footer">
-    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i>&nbsp;{{ 'Close' }}</button>
-    <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i>&nbsp;{{ 'Save' }}</button>
+    @if (empty($modal['footer-content']))
+    <button type="button" class="btn btn-danger" data-dismiss="modal" id="modal-button-close"><i class="fas fa-fw fa-times"></i>&nbsp;{{ __("Close") }}</button>
+    <button type="submit" class="btn btn-success" id="modal-button-save"><i class="fas fa-fw fa-save"></i>&nbsp;{{ __("Save") }}</button>
+    @else
+    {!! $modal['footer-content'] !!}
+    @endif
 </div>
+@endif
 </form>

@@ -85,6 +85,10 @@ This is pretty straightforward. You're only writing code to load the form you've
             'route' => route('users.store'),
             'action' => 'create',
             'pjaxContainer' => $request->get('ref'),
+            // to prevent rendering of a modal footer
+            'footer-render' => false //true by default
+            // or just its buttons
+            'footer-content' => '' //your own HTML to replace the footer content with
         ];
 
         // modal
@@ -119,7 +123,7 @@ public function configureButtons()
        'showModal' => true,
        'dataAttributes => [
             // to optionally change the size of the modal. see https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes
-           'modal-size' => 'modal-sm'
+           'modal-size' => 'modal-sm',
        ]
     ]);
 }

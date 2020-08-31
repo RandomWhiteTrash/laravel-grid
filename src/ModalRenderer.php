@@ -8,6 +8,8 @@ namespace Leantony\Grid;
 
 class ModalRenderer
 {
+
+    private $defaults = ['footer-render' => true, 'footer-content' => ''];
     /**
      * Render the modal opening section
      *
@@ -16,7 +18,8 @@ class ModalRenderer
      */
     public function start($data)
     {
-        return view('leantony::modal.modal-partial-start', ['modal' => $data]);
+        $merged = array_merge($this->defaults, $data);
+        return view('leantony::modal.modal-partial-start', ['modal' => $merged]);
     }
 
     /**
@@ -26,6 +29,7 @@ class ModalRenderer
      */
     public function end($data = null)
     {
-        return view($data['modal-partial-end-view']??'leantony::modal.modal-partial-end');
+        $merged = array_merge($this->defaults, $data);
+        return view('leantony::modal.modal-partial-end', ['modal' => $merged]);
     }
 }
