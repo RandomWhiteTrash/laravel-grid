@@ -30,7 +30,8 @@ const _grids = _grids || {};
      */
     _grids.utils.handleAjaxRequest = (element, event, options) => {
       event = event || 'click';
-      if (element.length < 1) return;
+      if (element.length < 1)
+        return;
 
       element.each((i, obj) => {
         obj = $(obj);
@@ -48,19 +49,21 @@ const _grids = _grids || {};
               return;
             }
           }
+          element.block(JS_SPINNER);
           $.ajax({
             method: isForm ? obj.attr('method') : (obj.data('method') || 'POST'),
             url: isForm ? obj.attr('action') : obj.attr('href'),
             data: isForm ? obj.serialize() : null,
             beforeSend() {
-              if(options.beforeSend) {
+              if (options.beforeSend) {
                 options.beforeSend.call(this)
               }
             },
             complete() {
-              if(options.onComplete) {
+              if (options.onComplete) {
                 options.onComplete.call(this)
               }
+              element.unblock();
             },
             success(data) {
               if (pjaxContainer) {
@@ -182,11 +185,11 @@ const _grids = _grids || {};
        */
       bindPjax() {
         this.setupPjax(
-            this.opts.id,
-            'a[data-trigger-pjax=1]',
-            this.opts.pjax.afterPjax,
-            this.opts.pjax.pjaxOptions,
-        );
+          this.opts.id,
+          'a[data-trigger-pjax=1]',
+          this.opts.pjax.afterPjax,
+          this.opts.pjax.pjaxOptions,
+          );
 
         setupDateRangePicker(this);
       }
@@ -236,10 +239,10 @@ const _grids = _grids || {};
             endDate: end,
             ranges: {
               'Last 7 Days': [
-                  moment().subtract(6, 'days'), moment()
+                moment().subtract(6, 'days'), moment()
               ],
               'Last 30 Days': [
-                  moment().subtract(29, 'days'), moment()
+                moment().subtract(29, 'days'), moment()
               ],
               'This Month': [
                 moment().startOf('month'), moment().endOf('month')
@@ -256,11 +259,11 @@ const _grids = _grids || {};
             },
           });
 
-          element.on('apply.daterangepicker', function(ev, picker) {
+          element.on('apply.daterangepicker', function (ev, picker) {
             $(this).val(picker.startDate.format('YYYY-MM-DD') + ' - ' + picker.endDate.format('YYYY-MM-DD'));
           });
 
-          element.on('cancel.daterangepicker', function(ev, picker) {
+          element.on('cancel.daterangepicker', function (ev, picker) {
             $(this).val('');
           });
         }
@@ -291,8 +294,7 @@ const _grids = _grids || {};
       }
       if (type === 'success') {
         html += '<div class="alert alert-success">';
-      }
-      else if (type === 'error') {
+      } else if (type === 'error') {
         html += '<div class="alert alert-danger">';
       } else {
         html += '<div class="alert alert-warning">';
@@ -300,7 +302,7 @@ const _grids = _grids || {};
       html += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
       // add a heading
       if (type === 'error') {
-        if(response.serverError) {
+        if (response.serverError) {
           html += response.serverError.message || 'A server error occurred.';
           html = `<strong>${html}</strong>`;
           return html;
@@ -370,8 +372,7 @@ const _grids = _grids || {};
                 }
               }, 500);
             }
-          }
-          else {
+          } else {
             // display message and hide modal
             const el = $(notification);
             el.html(_this.renderAlert('error', response.message));
@@ -424,7 +425,7 @@ const _grids = _grids || {};
        * Show a modal dialog dynamically
        */
       show() {
-        $('.show_modal_form').on('click', function(e) {
+        $('.show_modal_form').on('click', function (e) {
           e.preventDefault();
           const btn = $(this);
           const btnHtml = btn.html();
@@ -436,14 +437,21 @@ const _grids = _grids || {};
 
           // load the modal into the container put on the html
           $('.modal-content').
-              load($(this).attr('href') || $(this).data('href'), () => {
-                // show the modal
-                $('#bootstrap_modal').modal({ show: true });
-                // alter size
-                if (modalSize) {
-                  $('.modal-content').parent('div').addClass(modalSize);
-                }
-              });
+            load($(this).attr('href') || $(this).data('href'), () => {
+              // show the modal
+              $('#bootstrap_modal').modal({show: true});
+              // alter size
+              if (modalSize) {
+                $('.modal-content').parent('div').addClass(modalSize);
+              } else {
+                $('.modal-content').parent('div').addClass('modal-lg');                
+              }
+              //Alter backdrop
+              if (modalBackdrop) {
+                $('.modal-content').parent('div').attr('data-backdrop', modalBackdrop);
+              }
+
+            });
 
           // revert button to original content, once the modal is shown
           modalDialog.on('shown.bs.modal', e => {
@@ -451,7 +459,7 @@ const _grids = _grids || {};
           });
 
           // destroy the modal
-          modalDialog.on('hidden.bs.modal', function(e) {
+          modalDialog.on('hidden.bs.modal', function (e) {
             $(this).modal('dispose');
           });
         });
@@ -459,11 +467,11 @@ const _grids = _grids || {};
     }
 
     $('#bootstrap_modal').
-        on('click', '#' + 'modal_form' + ' button[type="submit"]', e => {
-          e.preventDefault();
-          // process forms on the modal
-          _grids.formUtils.handleFormSubmission('modal_form', $('#bootstrap_modal'));
-        });
+      on('click', '#' + 'modal_form' + ' button[type="submit"]', e => {
+        e.preventDefault();
+        // process forms on the modal
+        _grids.formUtils.handleFormSubmission('modal_form', $('#bootstrap_modal'));
+      });
 
     _grids.modal.init = options => {
       const obj = new modal(options);
@@ -490,11 +498,11 @@ const _grids = _grids || {};
         },
       });
 
-      element.on('apply.daterangepicker', function(ev, picker) {
+      element.on('apply.daterangepicker', function (ev, picker) {
         $(this).val(picker.startDate.format('YYYY-MM-DD'));
       });
 
-      element.on('cancel.daterangepicker', function(ev, picker) {
+      element.on('cancel.daterangepicker', function (ev, picker) {
         $(this).val('');
       });
     }

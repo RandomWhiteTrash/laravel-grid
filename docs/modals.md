@@ -85,6 +85,7 @@ This is pretty straightforward. You're only writing code to load the form you've
             'route' => route('users.store'),
             'action' => 'create',
             'pjaxContainer' => $request->get('ref'),
+            'title' => 'Your modal title or empty for auto generation based on action and model',
             // to prevent rendering of a modal footer
             'footer-render' => false //true by default
             // or just its buttons

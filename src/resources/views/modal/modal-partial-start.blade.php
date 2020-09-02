@@ -1,6 +1,6 @@
 <!-- Modal Header -->
 <div class="modal-header">
-    <h4 class="modal-title">{{ ucwords($modal['action'] . ' '. class_basename($modal['model'])) }}</h4>
+    <h4 class="modal-title">{{ !empty($modal['title']) ? $modal['title'] : (ucwords($modal['action'] . ' '. class_basename($modal['model']))) }}</h4>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>
 
