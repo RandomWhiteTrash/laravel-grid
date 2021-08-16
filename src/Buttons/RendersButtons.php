@@ -146,7 +146,7 @@ trait RendersButtons
             },
             'gridId' => $this->getId(),
             'type' => static::$TYPE_TOOLBAR,
-            'exportRoute' => $this->getIndexRouteName(),
+            'exportRoute' => $this->getIndexUrl(),
             'renderIf' => function () {
                 // only render the export button if `$allowsExporting` is set to true
                 return in_array('export', $this->buttonsToGenerate);

@@ -4,9 +4,36 @@
  */
 
 'use strict';
-const _grids = _grids || {};
 
-(($ => {
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor)
+        descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps)
+      defineProperties(Constructor.prototype, protoProps);
+    if (staticProps)
+      defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+var _grids = _grids || {};
+
+(function ($) {
 
   if (typeof $ === 'undefined') {
     throw new Error('Requires jQuery');
@@ -20,7 +47,7 @@ const _grids = _grids || {};
    */
   _grids.utils = {};
 
-  (($ => {
+  (function ($) {
     /**
      * Handle an ajax request from a button, form, link, etc
      *
@@ -28,55 +55,53 @@ const _grids = _grids || {};
      * @param event
      * @param options
      */
-    _grids.utils.handleAjaxRequest = (element, event, options) => {
+    _grids.utils.handleAjaxRequest = function (element, event, options) {
       event = event || 'click';
       if (element.length < 1)
         return;
 
-      element.each((i, obj) => {
+      element.each(function (i, obj) {
         obj = $(obj);
         // confirmation
-        const confirmation = obj.data('trigger-confirm');
-        const confirmationMessage = obj.data('confirmation-msg') || 'Are you sure?';
-        const pjaxContainer = obj.data('pjax-target');
-        const refresh = obj.data('refresh-page');
-        const isForm = obj.is('form');
+        var confirmation = obj.data('trigger-confirm');
+        var confirmationMessage = obj.data('confirmation-msg') || 'Are you sure?';
+        var pjaxContainer = obj.data('pjax-target');
+        var refresh = obj.data('refresh-page');
+        var isForm = obj.is('form');
 
-        obj.on(event, e => {
+        obj.on(event, function (e) {
           e.preventDefault();
           if (confirmation) {
             if (!confirm(confirmationMessage)) {
               return;
             }
           }
-          element.block(JS_SPINNER);
           $.ajax({
-            method: isForm ? obj.attr('method') : (obj.data('method') || 'POST'),
+            method: isForm ? obj.attr('method') : obj.data('method') || 'POST',
             url: isForm ? obj.attr('action') : obj.attr('href'),
             data: isForm ? obj.serialize() : null,
-            beforeSend() {
+            beforeSend: function beforeSend() {
               if (options.beforeSend) {
-                options.beforeSend.call(this)
+                options.beforeSend.call(this);
               }
             },
-            complete() {
+            complete: function complete() {
               if (options.onComplete) {
-                options.onComplete.call(this)
+                options.onComplete.call(this);
               }
-              element.unblock();
             },
-            success(data) {
+            success: function success(data) {
               if (pjaxContainer) {
                 $.pjax.reload({container: pjaxContainer});
               }
             },
-            error(data) {
+            error: function error(data) {
               if (typeof toastr !== 'undefined') {
                 toastr.error('An error occurred', 'Whoops!');
               } else {
                 alert('An error occurred');
               }
-            },
+            }
           });
         });
       });
@@ -85,24 +110,24 @@ const _grids = _grids || {};
     /**
      * Linkable rows on tables (rows that can be clicked to navigate to a location)
      */
-    _grids.utils.tableLinks = options => {
+    _grids.utils.tableLinks = function (options) {
       if (!options) {
         console.warn('No options defined.');
       } else {
-        const elements = $(options.element);
-        elements.each((i, obj) => {
-          const el = $(obj);
-          const link = el.data('url');
+        var elements = $(options.element);
+        elements.each(function (i, obj) {
+          var el = $(obj);
+          var link = el.data('url');
           el.css({'cursor': 'pointer'});
-          el.click(e => {
-            setTimeout(() => {
+          el.click(function (e) {
+            setTimeout(function () {
               window.location = link;
             }, options.navigationDelay || 100);
           });
         });
       }
     };
-  }))(jQuery);
+  })(jQuery);
 
   /**
    * The global grid object
@@ -112,16 +137,17 @@ const _grids = _grids || {};
    */
   _grids.grid = {};
 
-  (($ => {
+  (function ($) {
     /**
      * Initialization
      *
      * @param opts
      */
-    class grid {
-      constructor(opts) {
+    var grid = function () {
+      function grid(opts) {
+        _classCallCheck(this, grid);
 
-        const defaults = {
+        var defaults = {
           /**
            * The ID of the html element containing the grid
            */
@@ -154,9 +180,8 @@ const _grids = _grids || {};
             /**
              * Something to do once the PJAX request has been finished
              */
-            afterPjax(e) {
-            },
-          },
+            afterPjax: function afterPjax(e) {}
+          }
         };
         this.opts = $.extend({}, defaults, opts || {});
       }
@@ -169,94 +194,103 @@ const _grids = _grids || {};
        * @param afterPjax a function that will be executed after the pjax request is done
        * @param options
        */
-      setupPjax(container, target, afterPjax, options) {
-        // global timeout
-        $.pjax.defaults.timeout = options.timeout || 3000;
-        $(document).pjax(target, container, options);
-        $(document).on('ready pjax:end', event => {
-          afterPjax($(event.target));
-          // internal calls
-          setupDateRangePicker(this);
-        });
-      }
 
-      /**
-       * Initialize pjax functionality
-       */
-      bindPjax() {
-        this.setupPjax(
-          this.opts.id,
-          'a[data-trigger-pjax=1]',
-          this.opts.pjax.afterPjax,
-          this.opts.pjax.pjaxOptions,
-          );
 
-        setupDateRangePicker(this);
-      }
+      _createClass(grid, [{
+          key: 'setupPjax',
+          value: function setupPjax(container, target, afterPjax, options) {
+            var _this2 = this;
 
-      /**
-       * Pjax per row filter
-       */
-      filter() {
-        const form = $(this.opts.filterForm);
+            // global timeout
+            $.pjax.defaults.timeout = options.timeout || 3000;
+            $(document).pjax(target, container, options);
+            $(document).on('ready pjax:end', function (event) {
+              afterPjax($(event.target));
+              // internal calls
+              setupDateRangePicker(_this2);
+            });
+          }
 
-        if (form.length > 0) {
-          $(document).on('submit', this.opts.filterForm, event => {
-            $.pjax.submit(event, this.opts.id, this.opts.pjax.pjaxOptions);
-          });
-        }
-      }
+          /**
+           * Initialize pjax functionality
+           */
 
-      /**
-       * Pjax search
-       */
-      search() {
-        const form = $(this.opts.searchForm);
+        }, {
+          key: 'bindPjax',
+          value: function bindPjax() {
+            this.setupPjax(this.opts.id, 'a[data-trigger-pjax=1]', this.opts.pjax.afterPjax, this.opts.pjax.pjaxOptions);
 
-        if (form.length > 0) {
-          $(document).on('submit', this.opts.searchForm, event => {
-            $.pjax.submit(event, this.opts.id, this.opts.pjax.pjaxOptions);
-          });
-        }
-      }
-    }
+            setupDateRangePicker(this);
+          }
+
+          /**
+           * Pjax per row filter
+           */
+
+        }, {
+          key: 'filter',
+          value: function filter() {
+            var _this3 = this;
+
+            var form = $(this.opts.filterForm);
+
+            if (form.length > 0) {
+              $(document).on('submit', this.opts.filterForm, function (event) {
+                $.pjax.submit(event, _this3.opts.id, _this3.opts.pjax.pjaxOptions);
+              });
+            }
+          }
+
+          /**
+           * Pjax search
+           */
+
+        }, {
+          key: 'search',
+          value: function search() {
+            var _this4 = this;
+
+            var form = $(this.opts.searchForm);
+
+            if (form.length > 0) {
+              $(document).on('submit', this.opts.searchForm, function (event) {
+                $.pjax.submit(event, _this4.opts.id, _this4.opts.pjax.pjaxOptions);
+              });
+            }
+          }
+        }]);
+
+      return grid;
+    }();
 
     /**
      * Setup date range picker
      *
      * @param instance
      */
+
     function setupDateRangePicker(instance) {
       if (instance.opts.dateRangeSelector) {
         if (typeof daterangepicker !== 'function') {
           console.warn('date range picker option requires https://github.com/dangrossman/bootstrap-daterangepicker.git');
         } else {
-          const start = moment().subtract(29, 'days');
-          const end = moment();
-          const element = $(instance.opts.dateRangeSelector);
+          var start = moment().subtract(29, 'days');
+          var end = moment();
+          var element = $(instance.opts.dateRangeSelector);
           element.daterangepicker({
             startDate: start,
             endDate: end,
             ranges: {
-              'Last 7 Days': [
-                moment().subtract(6, 'days'), moment()
-              ],
-              'Last 30 Days': [
-                moment().subtract(29, 'days'), moment()
-              ],
-              'This Month': [
-                moment().startOf('month'), moment().endOf('month')
-              ],
-              'Last Month': [
-                moment().subtract(1, 'month').startOf('month'),
-                moment().subtract(1, 'month').endOf('month')
-              ],
+              'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+              'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+              'This Month': [moment().startOf('month'), moment().endOf('month')],
+              'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
             },
             autoUpdateInput: false,
             locale: {
               format: 'YYYY-MM-DD',
-              cancelLabel: 'Clear',
-            },
+              cancelLabel: 'Clear'
+            }
           });
 
           element.on('apply.daterangepicker', function (ev, picker) {
@@ -270,13 +304,13 @@ const _grids = _grids || {};
       }
     }
 
-    _grids.grid.init = options => {
-      const obj = new grid(options);
+    _grids.grid.init = function (options) {
+      var obj = new grid(options);
       obj.bindPjax();
       obj.search();
       obj.filter();
     };
-  }))(jQuery);
+  })(jQuery);
 
   _grids.formUtils = {
     /**
@@ -286,10 +320,10 @@ const _grids = _grids || {};
      * @param response
      * @returns {string}
      */
-    renderAlert(type, response) {
-      const validTypes = ['success', 'error', 'notice'];
-      let html = '';
-      if (typeof type === 'undefined' || ($.inArray(type, validTypes) < 0)) {
+    renderAlert: function renderAlert(type, response) {
+      var validTypes = ['success', 'error', 'notice'];
+      var html = '';
+      if (typeof type === 'undefined' || $.inArray(type, validTypes) < 0) {
         type = validTypes[0];
       }
       if (type === 'success') {
@@ -304,16 +338,16 @@ const _grids = _grids || {};
       if (type === 'error') {
         if (response.serverError) {
           html += response.serverError.message || 'A server error occurred.';
-          html = `<strong>${html}</strong>`;
+          html = '<strong>' + html + '</strong>';
           return html;
         } else {
           html += response.message || 'Please fix the following errors';
-          html = `<strong>${html}</strong>`;
-          const errs = this.getValidationErrors(response.errors || {});
-          return `${html + errs}</div>`;
+          html = '<strong>' + html + '</strong>';
+          var errs = this.getValidationErrors(response.errors || {});
+          return html + errs + '</div>';
         }
       } else {
-        return `${html + response}</div>`;
+        return html + response + '</div>';
       }
     },
 
@@ -322,10 +356,10 @@ const _grids = _grids || {};
      * @param response
      * @returns {string}
      */
-    getValidationErrors(response) {
-      let errorsHtml = '';
-      $.each(response, (key, value) => {
-        errorsHtml += `<li>${value}</li>`;
+    getValidationErrors: function getValidationErrors(response) {
+      var errorsHtml = '';
+      $.each(response, function (key, value) {
+        errorsHtml += '<li>' + value + '</li>';
       });
       return errorsHtml;
     },
@@ -336,35 +370,35 @@ const _grids = _grids || {};
      * @param formId
      * @param modal
      */
-    handleFormSubmission(formId, modal) {
-      const form = $(`#${formId}`);
-      const submitButton = form.find(':submit');
-      const data = form.serialize();
-      const action = form.attr('action');
-      const method = form.attr('method') || 'POST';
-      const originalButtonHtml = $(submitButton).html();
-      const pjaxTarget = form.data('pjax-target');
-      const notification = form.data('notification-el') || 'modal-notification';
-      const _this = this;
+    handleFormSubmission: function handleFormSubmission(formId, modal) {
+      var form = $('#' + formId);
+      var submitButton = form.find(':submit');
+      var data = form.serialize();
+      var action = form.attr('action');
+      var method = form.attr('method') || 'POST';
+      var originalButtonHtml = $(submitButton).html();
+      var pjaxTarget = form.data('pjax-target');
+      var notification = form.data('notification-el') || 'modal-notification';
+      var _this = this;
 
       $.ajax({
         type: method,
         url: action,
-        data,
+        data: data,
         dataType: 'json',
-        success(response) {
+        success: function success(response) {
           if (response.success) {
-            let message = '<i class=\"fa fa-check\"></i> ';
+            var message = '<i class=\"fa fa-check\"></i> ';
             message += response.message;
-            $(`#${notification}`).html(_this.renderAlert('success', message));
+            $('#' + notification).html(_this.renderAlert('success', message));
             // if a redirect is required...
             if (response.redirectTo) {
-              setTimeout(() => {
+              setTimeout(function () {
                 window.location = response.redirectTo;
               }, response.redirectTimeout || 500);
             } else {
               // hide the modal after 1000 ms
-              setTimeout(() => {
+              setTimeout(function () {
                 modal.modal('hide');
                 if (pjaxTarget) {
                   // reload a pjax container
@@ -374,36 +408,43 @@ const _grids = _grids || {};
             }
           } else {
             // display message and hide modal
-            const el = $(notification);
+            var el = $(notification);
             el.html(_this.renderAlert('error', response.message));
-            setTimeout(() => {
+
+            setTimeout(function () {
               modal.modal('hide');
             }, 500);
           }
         },
-        beforeSend() {
+        beforeSend: function beforeSend() {
           $(submitButton).attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
         },
-        complete() {
+        complete: function complete() {
           $(submitButton).html(originalButtonHtml).removeAttr('disabled');
         },
-        error(data) {
-          let msg;
+        error: function error(data) {
+          var msg = void 0;
           // error handling
           switch (data.status) {
             case 500:
+              // display error 500
               msg = _this.renderAlert('error', {serverError: {message: "An error occurred on the server."}});
+              var el = $('#' + notification);
+              el.html(msg);
               break;
             default:
+              // display validation errors
               msg = _this.renderAlert('error', data.responseJSON);
+              $('.invalid-feedback').remove();
+              for (const property in data.responseJSON.errors) {
+                $(`.modal *[name="${property}"]`).addClass('is-invalid').after(`<small class="invalid-feedback">${data.responseJSON.errors[property]}</small>`);
+              }
+
               break;
           }
-          // display errors
-          const el = $(`#${notification}`);
-          el.html(msg);
-        },
+        }
       });
-    },
+    }
   };
 
   /**
@@ -414,88 +455,93 @@ const _grids = _grids || {};
    */
   _grids.modal = {};
 
-  (($ => {
-    class modal {
-      constructor(options) {
-        const defaultOptions = {};
+  (function ($) {
+    var modal = function () {
+      function modal(options) {
+        _classCallCheck(this, modal);
+
+        var defaultOptions = {};
         this.options = $.extend({}, defaultOptions, options || {});
       }
 
       /**
        * Show a modal dialog dynamically
        */
-      show() {
-        $('.show_modal_form').on('click', function (e) {
-          e.preventDefault();
-          const btn = $(this);
-          const btnHtml = btn.html();
-          const modalDialog = $('#bootstrap_modal');
-          const modalSize = btn.data('modal-size');
-          const modalBackdrop = btn.data('modal-backdrop');
-          // show spinner as soon as user click is triggered
-          btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
 
-          // load the modal into the container put on the html
-          $('.modal-content').
-            load($(this).attr('href') || $(this).data('href'), () => {
-              // show the modal
-              $('#bootstrap_modal').modal({show: true});
-              // alter size
-              if (modalSize) {
-                $('.modal-content').parent('div').addClass(modalSize);
-              } else {
-                $('.modal-content').parent('div').addClass('modal-lg');                
-              }
-              //Alter backdrop
-              if (modalBackdrop) {
-                $('.modal-content').parent('div').attr('data-backdrop', modalBackdrop);
-              }
 
+      _createClass(modal, [{
+          key: 'show',
+          value: function show() {
+            $('.show_modal_form').on('click', function (e) {
+              e.preventDefault();
+              var btn = $(this);
+              var btnHtml = btn.html();
+              var modalDialog = $('#bootstrap_modal');
+              var modalSize = btn.data('modal-size');
+              var modalBackdrop = btn.data('modal-backdrop');
+              // show spinner as soon as user click is triggered
+              btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
+
+              // load the modal into the container put on the html
+              $('.modal-content').load($(this).attr('href') || $(this).data('href'), function () {
+                // show the modal
+                $('#bootstrap_modal').modal({show: true});
+                // alter size
+                if (modalSize) {
+                  $('.modal-content').parent('div').addClass(modalSize);
+                }
+                // alter backdrop
+                if (modalBackdrop) {
+                  $('.modal-content').parent('div').attr('data-backdrop', modalBackdrop);
+                }
+
+              });
+
+              // revert button to original content, once the modal is shown
+              modalDialog.on('shown.bs.modal', function (e) {
+                $(btn).html(btnHtml).removeAttr('disabled');
+              });
+
+              // destroy the modal
+              modalDialog.on('hidden.bs.modal', function (e) {
+                $(this).modal('dispose');
+              });
             });
+          }
+        }]);
 
-          // revert button to original content, once the modal is shown
-          modalDialog.on('shown.bs.modal', e => {
-            $(btn).html(btnHtml).removeAttr('disabled');
-          });
+      return modal;
+    }();
 
-          // destroy the modal
-          modalDialog.on('hidden.bs.modal', function (e) {
-            $(this).modal('dispose');
-          });
-        });
-      }
-    }
+    $('#bootstrap_modal').on('click', '#' + 'modal_form' + ' button[type="submit"]', function (e) {
+      e.preventDefault();
+      // process forms on the modal
+      _grids.formUtils.handleFormSubmission('modal_form', $('#bootstrap_modal'));
+    });
 
-    $('#bootstrap_modal').
-      on('click', '#' + 'modal_form' + ' button[type="submit"]', e => {
-        e.preventDefault();
-        // process forms on the modal
-        _grids.formUtils.handleFormSubmission('modal_form', $('#bootstrap_modal'));
-      });
-
-    _grids.modal.init = options => {
-      const obj = new modal(options);
+    _grids.modal.init = function (options) {
+      var obj = new modal(options);
       obj.show();
     };
-  })(jQuery));
+  })(jQuery);
 
   /**
    * Initialize stuff
    */
-  _grids.init = () => {
+  _grids.init = function () {
     // date picker
     if (typeof daterangepicker !== 'function') {
       console.warn('date picker option requires https://github.com/dangrossman/bootstrap-daterangepicker.git');
     } else {
-      const element = $('.grid-datepicker');
+      var element = $('.grid-datepicker');
       element.daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         autoUpdateInput: false,
         minYear: 1901,
         locale: {
-          format: 'YYYY-MM-DD',
-        },
+          format: 'YYYY-MM-DD'
+        }
       });
 
       element.on('apply.daterangepicker', function (ev, picker) {
@@ -512,9 +558,16 @@ const _grids = _grids || {};
     _grids.utils.tableLinks({element: '.linkable', navigationDelay: 100});
     // setup ajax listeners
     _grids.utils.handleAjaxRequest($('.data-remote'), 'click', {});
+
+    $(document).on('focus', '.modal .is-invalid', function () {
+      $(this).removeClass('is-invalid');
+      $(this).closest('.invalid-feedback').remove();
+    });
   };
 
   return _grids;
-}))(jQuery);
+})(jQuery);
 
 _grids.init();
+
+//# sourceMappingURL=grid.js.map

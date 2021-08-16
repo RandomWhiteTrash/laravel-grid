@@ -16,6 +16,11 @@ trait ConfiguresRoutes
     protected $indexRouteName;
 
     /**
+     * @var array
+     */
+    protected $indexRouteParams = [];
+
+    /**
      * Route name for the create route
      *
      * @var string
@@ -71,15 +76,31 @@ trait ConfiguresRoutes
      */
     public function getIndexUrl(array $params = []): string
     {
-        return route($this->getIndexRouteName(), add_query_param($params));
+        return route($this->getIndexRouteName(), $this->getIndexRouteParams());
+    }
+
+    /**
+     * @return array
+     */
+    public function getIndexRouteParams(): array
+    {
+        return $this->indexRouteParams;
+    }
+
+    /**
+     * @param array $indexRouteParams
+     */
+    public function setIndexRouteParams(array $indexRouteParams): void
+    {
+        $this->indexRouteParams = $indexRouteParams;
     }
 
     /**
      * @return string
      */
-    public function getRefreshUrl(): string
+    public function getRefreshUrl(array $params = []): string
     {
-        return route($this->getIndexRouteName());
+        return $this->getIndexUrl();
     }
 
     /**
@@ -87,7 +108,7 @@ trait ConfiguresRoutes
      */
     public function getFilterUrl(): string
     {
-        return route($this->getIndexRouteName());
+        return $this->getIndexUrl();
     }
 
     /**
@@ -115,10 +136,10 @@ trait ConfiguresRoutes
      */
     protected function setSortUrl(string $key, string $direction): void
     {
-        $this->sortUrl = route($this->getIndexRouteName(), add_query_param([
+        $this->sortUrl = route($this->getIndexRouteName(), add_query_param(array_merge($this->getIndexRouteParams(), [
             $this->getGridSortParam() => $key,
             $this->getGridSortDirParam() => $direction
-        ]));
+        ])));
     }
 
     /**
@@ -144,7 +165,7 @@ trait ConfiguresRoutes
      */
     public function getSearchUrl(array $params = []): string
     {
-        return route($this->getIndexRouteName(), $params);
+        return $this->getIndexUrl();
     }
 
     /**

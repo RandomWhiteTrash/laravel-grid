@@ -119,6 +119,13 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     protected $tableName;
 
     /**
+     * Name of the primary model this grid represents
+     *
+     * @var string
+     */
+    protected $model;
+
+    /**
      * Create the grid
      *
      * @param array $params
@@ -249,6 +256,10 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     {
         if (!empty($this->tableName)) {
             return $this->tableName;
+        }
+
+        if (!empty($this->model) && class_exists($this->model)) {
+            return $this->model::getTable();
         }
 
         $gridName = $this->name;
@@ -394,6 +405,8 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         if ($this->allowsLinkableRows()) {
             throw new InvalidArgumentException("Specify a callback that would return a link for every row of the table.");
         }
+
+        return function(){};
     }
 
     /**
