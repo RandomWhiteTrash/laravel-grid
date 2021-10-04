@@ -49,19 +49,27 @@ class SearchDataHandler
         if (!empty($this->getRequest()->query())) {
             $columns = $this->getGrid()->getColumns();
 
-            foreach ($columns as $columnName => $columnData) {
-                // check searchable
-                if (!$this->canSearchColumn($columnName, $columnData)) {
-                    continue;
-                }
-                // check user input
-                if (!$this->canUseProvidedUserInput($this->getRequest()->get($this->getGrid()->getGridSearchParam()))) {
-                    continue;
-                }
-                // operator
-                $operator = $this->fetchSearchOperator($columnName, $columnData)['operator'];
+            $user_input = $this->getRequest()->get($this->getGrid()->getGridSearchParam());
+            $user_input_array = explode(" ", $user_input);
 
-                $this->doSearch($columnName, $columnData, $operator, $this->getRequest()->get($this->getGrid()->getGridSearchParam()));
+            foreach ($user_input_array as $separated_search_term) {
+                $this->getQuery()->where(function($query) use ($columns, $separated_search_term){
+
+                foreach ($columns as $columnName => $columnData) {
+                    // check searchable
+                    if (!$this->canSearchColumn($columnName, $columnData)) {
+                        continue;
+                    }
+                    // check user input
+                    if (!$this->canUseProvidedUserInput($separated_search_term)) {
+                        continue;
+                    }
+                    // operator
+                    $operator = $this->fetchSearchOperator($columnName, $columnData)['operator'];
+
+                    $this->doSearch($query, $columnName, $columnData, $operator, $separated_search_term);
+                }
+                });
             }
         }
     }
@@ -115,27 +123,22 @@ class SearchDataHandler
      * @param string $userInput
      * @return void
      */
-    public function doSearch(string $columnName, array $columnData, string $operator, string $userInput)
+    public function doSearch($query, string $columnName, array $columnData, string $operator, string $userInput)
     {
         $search = $columnData['search'] ?? [];
         $filter = $columnData['filter'] ?? [];
-
         // try to use the filter query, if allowed to
         if ($search['useFilterQuery'] ?? false) {
-
             if (isset($filter['query']) && is_callable($filter['query'])) {
                 // otherwise, use the filter, if defined
-                call_user_func($filter['query'], $this->getQuery(), $columnName, $userInput);
+                call_user_func($filter['query'], $query, $columnName, $userInput);
             }
-
         } else {
-
             if (isset($search['query']) && is_callable($search['query'])) {
                 // use the search filter
-                call_user_func($search['query'], $this->getQuery(), $columnName, $userInput);
+                call_user_func($search['query'], $query, $columnName, $userInput);
 
             } else {
-
                 if ($operator === strtolower('like')) {
                     // default like scenario
                     $value = '%' . $userInput . '%';
@@ -143,7 +146,7 @@ class SearchDataHandler
                     $value = $userInput;
                 }
 
-                $this->getQuery()->where($columnName, $operator, $value, $this->getGrid()->getGridSearchQueryType());
+                $query->where($columnName, $operator, $value, $this->getGrid()->getGridSearchQueryType());
             }
         }
     }

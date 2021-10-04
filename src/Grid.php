@@ -126,6 +126,13 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     protected $model;
 
     /**
+     * Name list of relations used by this grid
+     *
+     * @var string
+     */
+    protected $relations = [];
+
+    /**
      * Create the grid
      *
      * @param array $params
@@ -239,12 +246,23 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     {
         if (empty($this->tableColumns)) {
             $cols = Schema::getColumnListing($this->getGridDatabaseTable());
+//            $related_cols = $this->getRelatedTableColumns();
             $rejects = $this->getGridColumnsToSkipOnFilter();
             $this->tableColumns = collect($cols)->reject(function ($v) use ($rejects) {
                 return in_array($v, $rejects);
             })->toArray();
         }
         return $this->tableColumns;
+    }
+
+    public function getRelatedTableColumns()
+    {
+        if (!empty($this->model) && class_exists($this->model)) {
+            foreach ($this->relations as $relation) {
+                $tm = (new $this->model)->$relation();
+                ddd($tm->getTable());
+            }
+        }
     }
 
     /**
@@ -330,12 +348,12 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         if (empty($this->searchableColumns)) {
             $placeholder = Str::plural(Str::slug($this->getName()));
 
-            return sprintf('search %s ...', $placeholder);
+            return sprintf('Search %s ...', $placeholder);
         }
 
         $placeholder = collect($this->searchableColumns)->implode(',');
 
-        return sprintf('search %s by their %s ...', Str::lower($this->getName()), $placeholder);
+        return sprintf('Search %s by their %s ...', Str::lower($this->getName()), $placeholder);
     }
 
     /**
@@ -405,8 +423,6 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         if ($this->allowsLinkableRows()) {
             throw new InvalidArgumentException("Specify a callback that would return a link for every row of the table.");
         }
-
-        return function(){};
     }
 
     /**

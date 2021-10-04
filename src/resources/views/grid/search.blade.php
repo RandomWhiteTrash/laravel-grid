@@ -9,7 +9,7 @@
                    placeholder="{{ $placeholder }}" value="{{ request($name) }}" required="required"
                    aria-label="search">
             <div class="input-group-append">
-                <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i></button>
+                <button class="btn btn-outline-primary" type="submit"><i class="fa fa-search"></i> {{ __("Search") }}</button>
             </div>
         </div>
     </form>

@@ -95,13 +95,13 @@ trait RendersButtons
         return (new GenericButton([
             'gridId' => $this->getId(),
             'position' => 1,
-            'name' => "Create",
+            'name' => __("Create"),
             'class' => "btn btn-success",
             'showModal' => true,
             'type' => static::$TYPE_TOOLBAR,
             'icon' => 'fa-plus-circle',
             'url' => $this->getCreateUrl(['ref' => $this->getId()]),
-            'title' => 'add new ' . $this->shortSingularGridName(),
+            'title' => __("Add new {name}", ['name' => $this->shortSingularGridName()]),
             'renderIf' => function () {
                 return in_array('create', $this->buttonsToGenerate);
             }
@@ -115,7 +115,7 @@ trait RendersButtons
     protected function addRefreshButton(): GenericButton
     {
         return (new GenericButton([
-            'name' => 'Refresh',
+            'name' => __("Refresh"),
             'pjaxEnabled' => true,
             'position' => 2,
             'icon' => 'fa-refresh',
@@ -123,7 +123,7 @@ trait RendersButtons
             'gridId' => $this->getId(),
             'url' => $this->getRefreshUrl(),
             'type' => static::$TYPE_TOOLBAR,
-            'title' => 'refresh table for ' . strtolower($this->name),
+            'title' => __("Refresh"),
             'renderIf' => function () {
                 return in_array('refresh', $this->buttonsToGenerate);
             }

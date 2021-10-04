@@ -36,6 +36,7 @@ class RowFilterHandler
         if (!empty($this->request->query())) {
             $columns = $this->getGrid()->getColumns();
             $tableColumns = $this->getValidGridColumns();
+            //ddd($tableColumns);
             foreach ($columns as $columnName => $columnData) {
                 // skip rows that are not to be filtered
                 if (!$this->canFilter($columnName, $columnData)) {
@@ -46,9 +47,9 @@ class RowFilterHandler
                     continue;
                 }
                 // column check. Since the column data is coming from a user query
-                if (!$this->canUseProvidedColumn($columnName, $tableColumns)) {
-                    continue;
-                }
+//                if (!$this->canUseProvidedColumn($columnName, $tableColumns)) {
+//                    continue;
+//                }
                 $operator = $this->extractFilterOperator($columnName, $columnData)['operator'];
                 $this->doFilter($this->tableColumnName($columnName, $columnData), $columnData, $operator, $this->getRequest()->get($columnName));
             }

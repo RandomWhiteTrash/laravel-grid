@@ -7,7 +7,7 @@
 
         @if($grid->hasButtons('toolbar'))
             <div class="col-md-{{ $grid->getGridToolbarSize()[1] }}">
-                <div class="pull-right">
+                <div class="pull-right text-right">
                     @foreach($grid->getButtons('toolbar') as $button)
                         {!! $button->render() !!}
                     @endforeach
@@ -19,6 +19,7 @@
     <form action="{{ $grid->getSearchUrl() }}" method="GET" id="{{ $grid->getFilterFormId() }}"></form>
     <div class="table-responsive grid-wrapper">
         <table class="{{ $grid->getClass() }}">
+            @if(!$grid->hasItems())
             <thead class="{{ $grid->getHeaderClass() }}">
             <tr class="filter-header">
                 @foreach($columns as $column)
@@ -80,6 +81,7 @@
                 </tr>
             @endif
             </thead>
+            @endif
             <tbody>
             @if($grid->hasItems())
                 @if($grid->warnIfEmpty())
@@ -161,7 +163,7 @@
             </tbody>
         </table>
     </div>
-@endsection
+@overwrite
 @push('grid_js')
     <script>
       (function($) {
