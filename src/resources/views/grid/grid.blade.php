@@ -19,7 +19,6 @@
     <form action="{{ $grid->getSearchUrl() }}" method="GET" id="{{ $grid->getFilterFormId() }}"></form>
     <div class="table-responsive grid-wrapper">
         <table class="{{ $grid->getClass() }}">
-            @if(!$grid->hasItems())
             <thead class="{{ $grid->getHeaderClass() }}">
             <tr class="filter-header">
                 @foreach($columns as $column)
@@ -81,13 +80,14 @@
                 </tr>
             @endif
             </thead>
-            @endif
             <tbody>
             @if($grid->hasItems())
                 @if($grid->warnIfEmpty())
-                    <div class="alert alert-warning" role="alert">
-                        <strong><i class="fa fa-exclamation-triangle"></i>&nbsp;{{ __("No data present") }}</strong>
-                    </div>
+                    <tr>
+                        <td class="alert alert-warning" role="alert" colspan="100">
+                                <strong><i class="fa fa-exclamation-triangle"></i>&nbsp;{{ __("No data present") }}</strong>
+                        </td>
+                    </tr>
                 @endif
             @else
                 @foreach($grid->getData() as $item)

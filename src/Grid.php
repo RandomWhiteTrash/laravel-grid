@@ -126,11 +126,17 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     protected $model;
 
     /**
-     * Name list of relations used by this grid
+     * List of relations used by this grid
      *
      * @var string
      */
     protected $relations = [];
+
+
+    protected $renderSearchFormCustomSwitches = false;
+    protected $custom_one_label;
+    protected $custom_one_name;
+
 
     /**
      * Create the grid
@@ -247,7 +253,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         if (empty($this->tableColumns)) {
             $cols = Schema::getColumnListing($this->getGridDatabaseTable());
 //            $related_cols = $this->getRelatedTableColumns();
-            $rejects = $this->getGridColumnsToSkipOnFilter();
+            $rejects            = $this->getGridColumnsToSkipOnFilter();
             $this->tableColumns = collect($cols)->reject(function ($v) use ($rejects) {
                 return in_array($v, $rejects);
             })->toArray();
@@ -296,7 +302,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
 
     /**
      * Set data variables for the grid
-     * This will need to be passed on the the grid view so that they are displayed
+     * This will need to be passed on the grid view so that they are displayed
      *
      * @param array $result
      * @return void
@@ -306,7 +312,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         $data = data_get($result, 0);
         if (is_array($data)) {
             // an export has been triggered
-            $this->data = $data['data'];
+            $this->data          = $data['data'];
             $this->exportHandler = $data['exporter'];
         } else {
             if ($data === null) {
@@ -345,15 +351,15 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
      */
     private function getSearchPlaceholder()
     {
-        if (empty($this->searchableColumns)) {
+        if (empty($this->searchableColumns) || count($this->searchableColumns) > 3) {
             $placeholder = Str::plural(Str::slug($this->getName()));
 
-            return sprintf('Search %s ...', $placeholder);
+            return sprintf(__("Search %s ..."), $placeholder);
         }
 
-        $placeholder = collect($this->searchableColumns)->implode(',');
+        $placeholder = collect($this->searchableColumns)->implode(', ');
 
-        return sprintf('Search %s by their %s ...', Str::lower($this->getName()), $placeholder);
+        return sprintf(__("Search %s by their %s ..."), Str::lower($this->getName()), $placeholder);
     }
 
     /**
@@ -494,5 +500,46 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
     public function getHeaderClass(): string
     {
         return $this->getGridDefaultHeaderClass();
+    }
+
+    /**
+     * Name of the custom search parameter
+     *
+     * @return string
+     */
+    public function getCustomOneName(): string
+    {
+        return $this->custom_one_name ?? "custom_one_name";
+    }
+
+    /**
+     * Name of the custom search parameter
+     *
+     * @return string
+     */
+    public function getCustomOneLabel(): string
+    {
+        return $this->custom_one_label ?? "custom_one_label";
+    }
+
+
+    /**
+     * Set name of the custom search parameter
+     *
+     * @param string $value
+     */
+    public function setCustomOneName(string $value)
+    {
+        $this->custom_one_name = $value;
+    }
+
+    /**
+     * Set the label for the custom search parameter
+     *
+     * @param string $value
+     */
+    public function setCustomOneLabel(string $value)
+    {
+        $this->custom_one_label = $value;
     }
 }

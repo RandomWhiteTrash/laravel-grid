@@ -119,7 +119,7 @@ trait RendersButtons
             'pjaxEnabled' => true,
             'position' => 2,
             'icon' => 'fa-refresh',
-            'class' => 'btn btn-primary',
+            'class' => 'btn btn-outline-primary',
             'gridId' => $this->getId(),
             'url' => $this->getRefreshUrl(),
             'type' => static::$TYPE_TOOLBAR,

@@ -161,7 +161,7 @@ trait RendersGrid
     protected function compactData($params = [])
     {
         $data = [
-            'grid' => $this,
+            'grid'    => $this,
             'columns' => $this->getProcessedColumns()
         ];
         return array_merge($data, $this->getExtraParams($params));
@@ -218,7 +218,7 @@ trait RendersGrid
     public function renderPaginationInfoAtHeader()
     {
         return view('leantony::grid.pagination.pagination-info', [
-            'grid' => $this,
+            'grid'      => $this,
             'direction' => 'right'
         ])->render();
     }
@@ -232,9 +232,9 @@ trait RendersGrid
     public function renderPaginationInfoAtFooter()
     {
         return view('leantony::grid.pagination.pagination-info', [
-            'grid' => $this,
+            'grid'      => $this,
             'direction' => 'left',
-            'atFooter' => true
+            'atFooter'  => true
         ])->render();
     }
 
@@ -260,9 +260,9 @@ trait RendersGrid
     public function renderGridFilters()
     {
         return view('leantony::grid.filter', [
-            'grid' => $this,
+            'grid'    => $this,
             'columns' => $this->getProcessedColumns(),
-            'formId' => $this->getFilterFormId()
+            'formId'  => $this->getFilterFormId()
         ])->render();
     }
 
@@ -275,13 +275,16 @@ trait RendersGrid
     public function renderSearchForm()
     {
         $params = func_get_args();
-        $data = [
-            'colSize' => $this->getGridToolbarSize()[0], // size
-            'action' => $this->getSearchUrl(),
-            'id' => $this->getSearchFormId(),
-            'name' => $this->getGridSearchParam(),
-            'dataAttributes' => [],
-            'placeholder' => $this->getSearchPlaceholder(),
+        $data   = [
+            'grid'             => $this,
+            'colSize'          => $this->getGridToolbarSize()[0], // size
+            'action'           => $this->getSearchUrl(),
+            'id'               => $this->getSearchFormId(),
+            'name'             => $this->getGridSearchParam(),
+            'dataAttributes'   => [],
+            'placeholder'      => $this->getSearchPlaceholder(),
+            'custom_one_name'  => $this->getCustomOneName(),
+            'custom_one_label' => $this->getCustomOneLabel()
         ];
 
         return view($this->getGridSearchView(), array_merge($data, $params))->render();
