@@ -85,7 +85,7 @@
                 @if($grid->warnIfEmpty())
                     <tr>
                         <td class="alert alert-warning" role="alert" colspan="100">
-                                <strong><i class="fa fa-exclamation-triangle"></i>&nbsp;{{ __("No data present") }}</strong>
+                                <strong><i class="fa fa-exclamation-triangle"></i>&nbsp;<?php echo __("No data present") ?></strong>
                         </td>
                     </tr>
                 @endif
