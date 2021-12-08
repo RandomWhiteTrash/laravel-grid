@@ -199,42 +199,6 @@ var _grids = _grids || {};
 
           setupDateRangePicker(this);
         }
-
-        /**
-         * Pjax per row filter
-         */
-
-      }, {
-        key: 'filter',
-        value: function filter() {
-          var _this3 = this;
-
-          var form = $(this.opts.filterForm);
-
-          if (form.length > 0) {
-            $(document).on('submit', this.opts.filterForm, function (event) {
-              $.pjax.submit(event, _this3.opts.id, _this3.opts.pjax.pjaxOptions);
-            });
-          }
-        }
-
-        /**
-         * Pjax search
-         */
-
-      }, {
-        key: 'search',
-        value: function search() {
-          var _this4 = this;
-
-          var form = $(this.opts.searchForm);
-
-          if (form.length > 0) {
-            $(document).on('submit', this.opts.searchForm, function (event) {
-              $.pjax.submit(event, _this4.opts.id, _this4.opts.pjax.pjaxOptions);
-            });
-          }
-        }
       }]);
 
       return grid;
@@ -285,8 +249,6 @@ var _grids = _grids || {};
     _grids.grid.init = function (options) {
       var obj = new grid(options);
       obj.bindPjax();
-      obj.search();
-      obj.filter();
     };
   })(jQuery);
 
@@ -531,5 +493,3 @@ var _grids = _grids || {};
 })(jQuery);
 
 _grids.init();
-
-//# sourceMappingURL=grid.js.map

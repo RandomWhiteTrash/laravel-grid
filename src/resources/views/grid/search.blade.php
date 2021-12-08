@@ -9,7 +9,7 @@
                    placeholder="{{ $placeholder }}" value="{{ request($name) }}" aria-label="search">
             <div class="input-group-append">
                 <button class="btn btn-primary grid-search-submit-button" type="submit"><i
-                        class="fa fa-search"></i> {{ __("Search") }}</button>
+                        class="fa fa-search"></i> <?php echo __("Search") ?></button>
             </div>
         </div>
         @if ($grid->renderSearchFormCustomSwitches)

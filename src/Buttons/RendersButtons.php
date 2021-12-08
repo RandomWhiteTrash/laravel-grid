@@ -116,9 +116,9 @@ trait RendersButtons
     {
         return (new GenericButton([
             'name' => __("Refresh"),
-            'pjaxEnabled' => true,
+            'pjaxEnabled' => false,
             'position' => 2,
-            'icon' => 'fa-refresh',
+            'icon' => 'fas fa-redo',
             'class' => 'btn btn-outline-primary',
             'gridId' => $this->getId(),
             'url' => $this->getRefreshUrl(),

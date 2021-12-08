@@ -302,7 +302,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
 
     /**
      * Set data variables for the grid
-     * This will need to be passed on the grid view so that they are displayed
+     * This will need to be passed on the the grid view so that they are displayed
      *
      * @param array $result
      * @return void

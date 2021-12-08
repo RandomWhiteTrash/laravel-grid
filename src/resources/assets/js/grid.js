@@ -389,7 +389,6 @@ var _grids = _grids || {};
                 data: data,
                 dataType: 'json',
                 success: function success(response) {
-                    console.log(response);
                     if (response.success) {
                         var message = '<i class=\"fa fa-check\"></i> ';
                         message += response.message;
@@ -578,5 +577,3 @@ var _grids = _grids || {};
 })(jQuery);
 
 _grids.init();
-
-//# sourceMappingURL=grid.js.map
