@@ -224,42 +224,6 @@ var _grids = _grids || {};
 
                     setupDateRangePicker(this);
                 }
-
-                /**
-                 * Pjax per row filter
-                 */
-
-            }, {
-                key: 'filter',
-                value: function filter() {
-                    var _this3 = this;
-
-                    var form = $(this.opts.filterForm);
-
-                    if (form.length > 0) {
-                        $(document).on('submit', this.opts.filterForm, function (event) {
-                            $.pjax.submit(event, _this3.opts.id, _this3.opts.pjax.pjaxOptions);
-                        });
-                    }
-                }
-
-                /**
-                 * Pjax search
-                 */
-
-            }, {
-                key: 'search',
-                value: function search() {
-                    var _this4 = this;
-
-                    var form = $(this.opts.searchForm);
-
-                    if (form.length > 0) {
-                        $(document).on('submit', this.opts.searchForm, function (event) {
-                            $.pjax.submit(event, _this4.opts.id, _this4.opts.pjax.pjaxOptions);
-                        });
-                    }
-                }
             }]);
 
             return grid;
@@ -309,8 +273,6 @@ var _grids = _grids || {};
         _grids.grid.init = function (options) {
             var obj = new grid(options);
             obj.bindPjax();
-            obj.search();
-            obj.filter();
         };
     })(jQuery);
 
@@ -398,22 +360,20 @@ var _grids = _grids || {};
                             setTimeout(function () {
                                 window.location = response.redirectTo;
                             }, response.redirectTimeout || 500);
-                        } else if (response.callback) {
-                            alert('b');
-                            if (typeof callback === 'function') {
-                                callback();
-                            }
+                        } else {
+                            // hide the modal after 1000 ms
+                            setTimeout(function () {
+                                modal.modal('hide');
+                                if (pjaxTarget) {
+                                    // reload a pjax container
+                                    //  $.pjax.reload({container: pjaxTarget});
+                                }
+                            }, 500);
                         }
 
-                        // hide the modal after 1000 ms
-                        setTimeout(function () {
-                            modal.modal('hide');
-                            if (pjaxTarget) {
-                                // reload a pjax container
-                                $.pjax.reload({container: pjaxTarget});
-                            }
-                        }, 500);
-
+                        if (response.callback && (typeof Callbacks[response.callback] === 'function')) {
+                            Callbacks[response.callback](response.view);
+                        }
                     } else {
                         // display message and hide modal
                         var el = $(notification);
@@ -431,18 +391,18 @@ var _grids = _grids || {};
                     $(submitButton).html(originalButtonHtml).removeAttr('disabled');
                 },
                 error: function error(data) {
-                    var msg = void 0;
+                    var msg;
+                    var el = $('#' + notification);
                     // error handling
                     switch (data.status) {
                         case 500:
                             // display error 500
                             msg = _this.renderAlert('error', {serverError: {message: "An error occurred on the server."}});
-                            var el = $('#' + notification);
-                            el.html(msg);
                             break;
                         default:
                             // display validation errors
                             msg = _this.renderAlert('error', data.responseJSON);
+
                             $('.invalid-feedback').remove();
                             for (const property in data.responseJSON.errors) {
                                 $(`.modal *[name="${property}"]`).addClass('is-invalid').after(`<small class="invalid-feedback">${data.responseJSON.errors[property]}</small>`);
@@ -450,6 +410,7 @@ var _grids = _grids || {};
 
                             break;
                     }
+                    el.html(msg);
                 }
             });
         }
@@ -480,7 +441,7 @@ var _grids = _grids || {};
             _createClass(modal, [{
                 key: 'show',
                 value: function show() {
-                    $('.show_modal_form').on('click', function (e) {
+                    $(document).on('click', '.show_modal_form', function (e) {
                         e.preventDefault();
                         var btn = $(this);
                         var btnHtml = btn.html();
