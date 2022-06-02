@@ -67,7 +67,7 @@ var _grids = _grids || {};
                 var confirmation = obj.data('trigger-confirm');
                 var confirmationMessage = obj.data('confirmation-msg') || 'Are you sure?';
                 var pjaxContainer = obj.data('pjax-target');
-                var refresh = obj.data('refresh-page');
+                //var refresh = obj.data('refresh-page');
                 var isForm = obj.is('form');
 
                 obj.on(event, function (e) {
