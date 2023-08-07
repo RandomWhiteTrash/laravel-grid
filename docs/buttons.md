@@ -13,6 +13,10 @@ The grid comes with 5 default buttons. This are `create`, `update`, `delete`, `v
 ## Button attributes
 The button's PHP class uses the magic functions `__set` and `__get`, so you can actually add any property, and it will be magically set as a `public` property. The already existing attributes are shown below, and their sample values / defaults.
 ```php
+
+//Unique id of a button. If not set then it will use the name of the button. If that is empty as well then a random string will be generated
+'buttonID' => ''
+
 // an icon for the button, as chosen from font-awesome. Defaults to null
 'icon' => 'fa-user';
 
@@ -52,6 +56,12 @@ The button's PHP class uses the magic functions `__set` and `__get`, so you can 
 // It's actually a sort callback run over the collection of buttons, and this argument passed in the callback as an argument. 
 // Defaults to `null`
 'position' => 99;
+
+// can be either 'left' or 'right'. Defaults to 'right'
+'position_side' => 'right'; 
+
+//Separator between buttons. Defaults to an empty string. Can be any HTML string
+'separator' => '';
 
 // if a user click on it would trigger a PJAX action. Defaults to false
 'pjaxEnabled' => true;

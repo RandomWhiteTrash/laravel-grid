@@ -1,21 +1,39 @@
 @extends($grid->getRenderingTemplateToUse())
 @section('data')
-    <div class="row">
-        @if($grid->shouldRenderSearchForm())
-            {!! $grid->renderSearchForm() !!}
-        @endif
-
-        @if($grid->hasButtons('toolbar'))
-            <div class="col-md-{{ $grid->getGridToolbarSize()[1] }}">
-                <div class="pull-right text-right">
-                    @foreach($grid->getButtons('toolbar') as $button)
-                        {!! $button->render() !!}
-                    @endforeach
+    @if ($grid->shouldRenderSearchForm() || $grid->hasButtons('toolbar'))
+        <div class="row">
+            @if($grid->shouldRenderSearchForm())
+                <div class="col col-md-{{ $grid->hasButtons('toolbar')?$grid->getGridToolbarSize()[0]:12 }}">
+                    {!! $grid->renderSearchForm() !!}
                 </div>
-            </div>
-        @endif
+            @endif
 
-    </div>
+            @if($grid->hasButtons('toolbar'))
+                <div class="col col-md-{{ $grid->shouldRenderSearchForm()?$grid->getGridToolbarSize()[1]:12 }}">
+                    <div class="float-left text-left">
+                        @foreach($grid->getButtons('toolbar') as $button)
+                            @if (!empty($button->position_side) && $button->position_side === 'left')
+                                @if (is_callable($button->renderIf) && call_user_func($button->renderIf))
+                                    {!! !empty($button->separator)?$button->separator:'' !!}
+                                @endif
+                                {!! $button->render() !!}
+                            @endif
+                        @endforeach
+                    </div>
+                    <div class="float-right text-right">
+                        @foreach($grid->getButtons('toolbar') as $button)
+                            @if (empty($button->position_side) || $button->position_side !== 'left')
+                                @if (is_callable($button->renderIf) && call_user_func($button->renderIf))
+                                    {!! !empty($button->separator)?$button->separator:'' !!}
+                                @endif
+                                {!! $button->render() !!}
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        </div>
+    @endif
     <form action="{{ $grid->getSearchUrl() }}" method="GET" id="{{ $grid->getFilterFormId() }}"></form>
     <div class="table-responsive grid-wrapper">
         <table class="{{ $grid->getClass() }}">
@@ -28,7 +46,7 @@
                         @if($column->isSortable)
                             <th scope="col"
                                 class="{{ is_callable($column->columnClass) ? call_user_func($column->columnClass) : $column->columnClass }}"
-                                title="click to sort by {{ $column->key }}">
+                                title="{{ __("Click to sort by :name", ['name' => $column->name??$column->key]) }}">
                                 <a data-trigger-pjax="1" class="data-sort"
                                    href="{{ $grid->getSortUrl($column->key, $grid->getSelectedSortDirection()) }}">
                                     @if($column->useRawHtmlForLabel)
@@ -36,6 +54,7 @@
                                     @else
                                         {{ $column->name }}
                                     @endif
+                                    {!! request()->get('sort_by') == $column->key && request()->get('sort_dir') == 'asc'?"<i class='fas fa-fw fa-caret-up'></i>":"" !!}{!! request()->get('sort_by') == $column->key && request()->get('sort_dir') == 'desc'?"<i class='fas fa-fw fa-caret-down'></i>":"" !!}
                                 </a>
                             </th>
                         @else
@@ -49,8 +68,9 @@
                         @endif
                     @else
                         @if($column->isSortable)
-                            <th scope="col" title="click to sort by {{ $column->key }}"
-                                class="{{ is_callable($column->columnClass) ? call_user_func($column->columnClass) : $column->columnClass }}">
+                            <th scope="col"
+                                class="{{ is_callable($column->columnClass) ? call_user_func($column->columnClass) : $column->columnClass }}"
+                                title="{{ __("Click to sort by :name", ['name' => $column->name??$column->key]) }}">
                                 <a data-trigger-pjax="1" class="data-sort"
                                    href="{{ $grid->getSortUrl($column->key, $grid->getSelectedSortDirection()) }}">
                                     @if($column->useRawHtmlForLabel)
@@ -58,6 +78,7 @@
                                     @else
                                         {{ $column->name }}
                                     @endif
+                                    {!! request()->get('sort_by') == $column->key && request()->get('sort_dir') == 'asc'?"<i class='fas fa-fw fa-caret-up'></i>":"" !!}{!! request()->get('sort_by') == $column->key && request()->get('sort_dir') == 'desc'?"<i class='fas fa-fw fa-caret-down'></i>":"" !!}
                                 </a>
                             </th>
                         @else
@@ -85,23 +106,23 @@
                 @if($grid->warnIfEmpty())
                     <tr>
                         <td class="alert alert-warning" role="alert" colspan="100">
-                                <strong><i class="fa fa-exclamation-triangle"></i>&nbsp;<?php echo __("No data present") ?></strong>
+                            <strong><i class="fa fa-exclamation-triangle"></i>&nbsp;<?php echo __("No data present") ?></strong>
                         </td>
                     </tr>
                 @endif
             @else
-                @foreach($grid->getData() as $item)
+                @foreach($grid->getData() as $index => $item)
                     @if($grid->allowsLinkableRows())
                         @php
                             $callback = call_user_func($grid->getLinkableCallback(), $grid->transformName(), $item);
                         @endphp
                         @php
-                            $trClassCallback = call_user_func($grid->getRowCssStyle(), $grid->transformName(), $item);
+                            $trClassCallback = call_user_func($grid->getRowCssStyle(), $grid->transformName(), $item, $index);
                         @endphp
                         <tr class="{{ trim("linkable " . $trClassCallback) }}" data-url="{{ $callback }}">
                     @else
                         @php
-                            $trClassCallback = call_user_func($grid->getRowCssStyle(), $grid->transformName(), $item);
+                            $trClassCallback = call_user_func($grid->getRowCssStyle(), $grid->transformName(), $item, $index);
                         @endphp
                         <tr class="{{ $trClassCallback }}">
                             @endif
@@ -166,25 +187,25 @@
 @overwrite
 @push('grid_js')
     <script>
-      (function($) {
-        var grid = "{{ '#' . $grid->getId() }}";
-        var filterForm = "{{ '#' . $grid->getFilterFormId() }}";
-        var searchForm = "{{ '#' . $grid->getSearchFormId() }}";
-        _grids.grid.init({
-          id: grid,
-          filterForm: filterForm,
-          dateRangeSelector: '.date-range',
-          searchForm: searchForm,
-          pjax: {
-            pjaxOptions: {
-              scrollTo: false,
-            },
-            // what to do after a PJAX request. Js plugins have to be re-intialized
-            afterPjax: function(e) {
-              _grids.init();
-            },
-          },
-        });
-      })(jQuery);
+        (function ($) {
+            var grid = "{{ '#' . $grid->getId() }}";
+            var filterForm = "{{ '#' . $grid->getFilterFormId() }}";
+            var searchForm = "{{ '#' . $grid->getSearchFormId() }}";
+            _grids.grid.init({
+                id: grid,
+                filterForm: filterForm,
+                dateRangeSelector: '.date-range',
+                searchForm: searchForm,
+                pjax: {
+                    pjaxOptions: {
+                        scrollTo: false,
+                    },
+                    // what to do after a PJAX request. Js plugins have to be re-intialized
+                    afterPjax: function (e) {
+                        _grids.init();
+                    },
+                },
+            });
+        })(jQuery);
     </script>
 @endpush

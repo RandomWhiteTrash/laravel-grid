@@ -53,6 +53,9 @@ class SearchDataHandler
             $user_input_array = explode(" ", $user_input);
 
             foreach ($user_input_array as $separated_search_term) {
+                //Additional replacement to ensure &nbsp; is replaced too. Surfaced as an issue when copying strings from online Excel.
+                $separated_search_term = preg_replace ( "!\s++!u", '', $separated_search_term );
+
                 $this->getQuery()->where(function($query) use ($columns, $separated_search_term){
 
                 foreach ($columns as $columnName => $columnData) {

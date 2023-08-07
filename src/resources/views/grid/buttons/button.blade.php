@@ -6,7 +6,10 @@
            class="{{ $class }}"
            @foreach($dataAttributes as $k => $v)
            data-{{ $k }}={{ $v }}
-                @endforeach
+           @endforeach
+           @foreach($attributes as $k => $v)
+           {{ $k }}="{{ $v }}"
+            @endforeach
         >
             @if($icon)
                 <i class="fa {{ $icon }}"></i>
@@ -22,7 +25,10 @@
            class="{{ $class }}"
            @foreach($dataAttributes as $k => $v)
            data-{{ $k }}={{ $v }}
-                @endforeach
+           @endforeach
+           @foreach($attributes as $k => $v)
+           {{ $k }}="{{ $v }}"
+            @endforeach
         >
             @if($icon)
                 <i class="fa {{ $icon }}"></i>

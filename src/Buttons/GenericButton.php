@@ -80,6 +80,12 @@ class GenericButton implements Htmlable
      */
     public $dataAttributes = [];
     /**
+     * Any available data attributes
+     *
+     * @var array
+     */
+    public $attributes = [];
+    /**
      * The id of the grid in question. Will be used for PJAX
      *
      * @var string
@@ -335,6 +341,22 @@ class GenericButton implements Htmlable
     public function setDataAttributes(array $dataAttributes): GenericButton
     {
         $this->dataAttributes = $dataAttributes;
+        return $this;
+    }
+    /**
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+    /**
+     * @param array $dataAttributes
+     * @return GenericButton
+     */
+    public function setAttributes(array $attributes): GenericButton
+    {
+        $this->attributes = $dataAttributes;
         return $this;
     }
     /**
