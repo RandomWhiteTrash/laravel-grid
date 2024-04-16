@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Listeners;
+namespace randomwhitetrash\Grid\Listeners;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;

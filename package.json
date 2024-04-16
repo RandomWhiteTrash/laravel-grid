@@ -1,7 +1,7 @@
 {
   "name": "laravel_grid",
-  "version": "2.0.0",
-  "description": "laravel data grid inspired by the yii2 gridview",
+  "version": "3.0.0",
+  "description": "Laravel data grid inspired by the yii2 gridview. Based on the leantony/laravel-grid package.",
   "main": "none",
   "directories": {
     "doc": "docs",
@@ -24,12 +24,12 @@
     "pjax",
     "bootstrap"
   ],
-  "author": "chachaantony@gmail.com",
+  "author": "bmimage@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/leantony/laravel-grid/issues"
+    "url": "https://github.com/RandomWhiteTrash/laravel-grid/issues"
   },
-  "homepage": "https://github.com/leantony/laravel-grid#readme",
+  "homepage": "https://github.com/RandomWhiteTrash/laravel-grid#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",

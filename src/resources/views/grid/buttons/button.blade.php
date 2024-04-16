@@ -5,7 +5,7 @@
            title="{{ $title }}"
            class="{{ $class }}"
            @foreach($dataAttributes as $k => $v)
-           data-{{ $k }}={{ $v }}
+           data-{{ $k }}="{{ $v }}"
            @endforeach
            @foreach($attributes as $k => $v)
            {{ $k }}="{{ $v }}"
@@ -24,7 +24,7 @@
            title="{{ $title }}"
            class="{{ $class }}"
            @foreach($dataAttributes as $k => $v)
-           data-{{ $k }}={{ $v }}
+           data-{{ $k }}="{{ $v }}"
            @endforeach
            @foreach($attributes as $k => $v)
            {{ $k }}="{{ $v }}"

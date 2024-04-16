@@ -2,6 +2,6 @@
        form="{{ $formId }}"
        class="{{ $class }}" value="{{ request($name) }}" title="{{ $titleSetOnColumn ?? $title }}" placeholder="{{ $titleSetOnColumn ?? $title }}"
        @foreach($dataAttributes as $k => $v)
-       data-{{ $k }}={{ $v }}
+       data-{{ $k }}="{{ $v }}"
         @endforeach
 >

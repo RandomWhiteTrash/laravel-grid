@@ -399,7 +399,6 @@ var _grids = _grids || {};
                                 window.location = response.redirectTo;
                             }, response.redirectTimeout || 500);
                         } else if (response.callback) {
-                            alert('b');
                             if (typeof callback === 'function') {
                                 callback();
                             }

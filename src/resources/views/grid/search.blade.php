@@ -1,6 +1,6 @@
 <form method="GET" id="{{ $id }}" action="{{ $action }}"
       @foreach($dataAttributes as $k => $v)
-          data-{{ $k }}={{ $v }}
+          data-{{ $k }}="{{ $v }}"
     @endforeach
 >
     <div class="input-group mb-12">

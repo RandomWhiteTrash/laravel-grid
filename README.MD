@@ -7,10 +7,10 @@ Live demo: [here](http://laravel-grid.herokuapp.com/)
 [![Latest Unstable Version](https://poser.pugx.org/leantony/laravel-grid/v/unstable)](https://packagist.org/packages/leantony/laravel-grid)
 [![Total Downloads](https://poser.pugx.org/leantony/laravel-grid/downloads)](https://packagist.org/packages/leantony/laravel-grid)
 
-This package allows rendering of data via a tabular format (grid). The grid uses bootstrap classes to style the `table` elements. Icons used are from `font-awesome`, and most of the functionality is insipred by the yii2's framework's gridview widget. 
+This package allows rendering of data via a tabular format (grid). The grid uses bootstrap classes to style the `table` elements. Icons used are from `font-awesome`, and most of the functionality is insipred by the yii2's framework's gridview widget.
 
 ## Requirements
-+ Laravel 5.5+
++ Laravel 10+
 + Bootstrap 4 (for the styling)
 + Font awesome (for icons)
 + Jquery (required by bootstrap and the package's javascript)
@@ -24,13 +24,12 @@ This package allows rendering of data via a tabular format (grid). The grid uses
 ## Install
 The package is available on packagist. Just run;
 ```php
-composer install leantony/laravel-grid "~2.0"
+composer install randomwhitetrash/laravel-grid "^4.0"
 ```
-> For bootstrap 3 support, consider installing version `1.0`. Version 1.0 though is pretty not much updated at this point, so may lack some features.
 
 If you can't wait for a release inorder to try any fixes, or the latest features, just run;
 ```php
-composer install leantony/laravel-grid "2.0.x-dev"
+composer install randomwhitetrash/laravel-grid "4.0.x-dev"
 ```
 
 ## Publish assets
@@ -39,7 +38,7 @@ The grid comes with a config file, CSS assets, JS assets and view files. The com
 php artisan vendor:publish --provider="Leantony\Grid\Providers\GridServiceProvider"
 ```
 
-> You can also choose to publish the assets and views separately by passing the `--tag` argument to the command. 
+> You can also choose to publish the assets and views separately by passing the `--tag` argument to the command.
 For the argument values, try `assets`, `views`, `config` for js|css assets, views and config respectively.
 
 ## Add/Customize your layout

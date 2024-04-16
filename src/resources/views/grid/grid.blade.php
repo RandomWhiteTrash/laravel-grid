@@ -171,7 +171,7 @@
                                         <td></td>
                                     @else
                                         <td>
-                                            <b>{{ call_user_func($column->footer) }}</b>
+                                            {!! call_user_func($column->footer) !!}
                                         </td>
                                     @endif
                                     @if($loop->last)
