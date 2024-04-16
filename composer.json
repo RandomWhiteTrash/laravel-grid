@@ -11,8 +11,7 @@
     "laravel",
     "pjax",
     "grid",
-    "laravel-11",
-    "laravel6"
+    "laravel10"
   ],
   "homepage": "https://github.com/RandomWhiteTrash/laravel-grid",
   "authors": [
@@ -45,7 +44,7 @@
   },
   "autoload": {
     "psr-4": {
-      "randomwhitetrash\\Grid\\": "src/"
+      "Randomwhitetrash\\Grid\\": "src/"
     }
   },
   "autoload-dev": {
