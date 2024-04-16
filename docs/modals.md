@@ -5,7 +5,7 @@ Assuming you have all the requirements ready, this are the steps you will follow
 You also need to have published the grid's assets. If you haven't done that already, run the command;
 
 ```php
-php artisan vendor:publish --provider="Leantony\Grid\Providers\GridServiceProvider"
+php artisan vendor:publish --provider="Randomwhitetrash\Grid\Providers\GridServiceProvider"
 ```
 > For this steps, we will be assuming you want a modal displayed when you click on the 'create' button, so that you get a form that will help you create a user. This of course also assumes you already have a grid generated already.
 

@@ -4,7 +4,7 @@ namespace Tests\Setup\Grids;
 
 use Closure;
 use Illuminate\Support\Arr;
-use Leantony\Grid\Grid;
+use Randomwhitetrash\Grid\Grid;
 use Tests\Setup\TestModels\Role;
 
 class UsersGridCustomized extends Grid implements UsersGridInterface

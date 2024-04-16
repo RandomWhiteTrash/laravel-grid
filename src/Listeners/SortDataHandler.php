@@ -8,8 +8,8 @@ namespace randomwhitetrash\Grid\Listeners;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Leantony\Grid\GridInterface;
-use Leantony\Grid\GridResources;
+use Randomwhitetrash\Grid\GridInterface;
+use Randomwhitetrash\Grid\GridResources;
 
 class SortDataHandler
 {

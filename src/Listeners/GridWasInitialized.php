@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Listeners;
+namespace Randomwhitetrash\Grid\Listeners;
 
-use Leantony\Grid\Events\GridInitialized;
+use Randomwhitetrash\Grid\Events\GridInitialized;
 
 class GridWasInitialized
 {

@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Events;
+namespace Randomwhitetrash\Grid\Events;
 
-use Leantony\Grid\Columns\Column;
+use Randomwhitetrash\Grid\Columns\Column;
 
 class ColumnProcessed
 {

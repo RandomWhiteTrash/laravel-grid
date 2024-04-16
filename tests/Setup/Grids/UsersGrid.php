@@ -3,7 +3,7 @@
 namespace Tests\Setup\Grids;
 
 use Closure;
-use Leantony\Grid\Grid;
+use Randomwhitetrash\Grid\Grid;
 use Tests\Setup\TestModels\Role;
 
 class UsersGrid extends Grid implements UsersGridInterface

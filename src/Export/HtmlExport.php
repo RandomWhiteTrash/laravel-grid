@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Export;
+namespace Randomwhitetrash\Grid\Export;
 
 use Illuminate\Support\Collection;
 

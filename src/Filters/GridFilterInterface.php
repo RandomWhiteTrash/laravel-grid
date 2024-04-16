@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Filters;
+namespace Randomwhitetrash\Grid\Filters;
 
 interface GridFilterInterface
 {

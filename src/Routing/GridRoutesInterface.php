@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Routing;
+namespace Randomwhitetrash\Grid\Routing;
 
 interface GridRoutesInterface
 {

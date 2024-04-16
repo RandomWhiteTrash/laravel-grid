@@ -4,11 +4,11 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Columns;
+namespace Randomwhitetrash\Grid\Columns;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Leantony\Grid\Events\ColumnProcessed;
+use Randomwhitetrash\Grid\Events\ColumnProcessed;
 
 trait CreatesColumns
 {

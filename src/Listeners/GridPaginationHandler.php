@@ -4,11 +4,11 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Listeners;
+namespace Randomwhitetrash\Grid\Listeners;
 
 use Illuminate\Http\Request;
-use Leantony\Grid\GridInterface;
-use Leantony\Grid\GridResources;
+use Randomwhitetrash\Grid\GridInterface;
+use Randomwhitetrash\Grid\GridResources;
 
 class GridPaginationHandler
 {

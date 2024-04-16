@@ -2,7 +2,7 @@
 
 namespace Tests\Setup\Grids;
 
-use Leantony\Grid\GridInterface;
+use Randomwhitetrash\Grid\GridInterface;
 
 interface UsersGridInterface extends GridInterface
 {

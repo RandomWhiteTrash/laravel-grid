@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid;
+namespace Randomwhitetrash\Grid;
 
 use Closure;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -13,17 +13,17 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Leantony\Grid\Buttons\GridButtonsInterface;
-use Leantony\Grid\Buttons\RendersButtons;
-use Leantony\Grid\Columns\CreatesColumns;
-use Leantony\Grid\Columns\GridColumnsInterface;
-use Leantony\Grid\Events\GridInitialized;
-use Leantony\Grid\Events\UserActionRequested;
-use Leantony\Grid\Filters\AddsColumnFilters;
-use Leantony\Grid\Filters\GridFilterInterface;
-use Leantony\Grid\Listeners\DataExportHandler;
-use Leantony\Grid\Routing\ConfiguresRoutes;
-use Leantony\Grid\Routing\GridRoutesInterface;
+use Randomwhitetrash\Grid\Buttons\GridButtonsInterface;
+use Randomwhitetrash\Grid\Buttons\RendersButtons;
+use Randomwhitetrash\Grid\Columns\CreatesColumns;
+use Randomwhitetrash\Grid\Columns\GridColumnsInterface;
+use Randomwhitetrash\Grid\Events\GridInitialized;
+use Randomwhitetrash\Grid\Events\UserActionRequested;
+use Randomwhitetrash\Grid\Filters\AddsColumnFilters;
+use Randomwhitetrash\Grid\Filters\GridFilterInterface;
+use Randomwhitetrash\Grid\Listeners\DataExportHandler;
+use Randomwhitetrash\Grid\Routing\ConfiguresRoutes;
+use Randomwhitetrash\Grid\Routing\GridRoutesInterface;
 
 abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, GridFilterInterface, GridColumnsInterface, GridRoutesInterface
 {

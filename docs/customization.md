@@ -1,7 +1,7 @@
 # Configuration
 The grid is highly customizable, and for starters, comes with a config file that can be published using the `vendor:publish` laravel artisan command.
 ```php
-php artisan vendor:publish --provider="Leantony\Grid\Providers\GridServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Randomwhitetrash\Grid\Providers\GridServiceProvider" --tag="config"
 ```
 Running this command should copy the config file (grid.php) to `app/config`. Feel free to tweak what you want. It's well documented inside  the config file.
 ```php
@@ -170,7 +170,7 @@ return [
 ```
 The resources provided are also highly customizable. These are published as usual, like this;
 ```php
-php artisan vendor:publish --provider="Leantony\Grid\Providers\GridServiceProvider" --tag="views"
+php artisan vendor:publish --provider="Randomwhitetrash\Grid\Providers\GridServiceProvider" --tag="views"
 ```
 These will be copied to `resources/views/vendor/leantony/grid`. From there, you can change what you want and laravel will automatically use that, instead of the one from the package.
 > Just do not delete the variables / functions, as that might break the functionality!!

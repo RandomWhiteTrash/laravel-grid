@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid;
+namespace Randomwhitetrash\Grid;
 
 use Illuminate\Http\Request;
 

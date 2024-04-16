@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Export;
+namespace Randomwhitetrash\Grid\Export;
 
 use Maatwebsite\Excel\Concerns\Exportable;
 use Illuminate\Support\Collection;

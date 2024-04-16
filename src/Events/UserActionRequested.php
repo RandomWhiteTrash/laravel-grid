@@ -3,10 +3,10 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Leantony\Grid\Events;
+namespace Randomwhitetrash\Grid\Events;
 use Illuminate\Http\Request;
-use Leantony\Grid\Grid;
-use Leantony\Grid\GridInterface;
+use Randomwhitetrash\Grid\Grid;
+use Randomwhitetrash\Grid\GridInterface;
 use Illuminate\Support\Arr;
 class UserActionRequested
 {

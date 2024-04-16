@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Listeners;
+namespace Randomwhitetrash\Grid\Listeners;
 
-use Leantony\Grid\Events\ColumnProcessed;
+use Randomwhitetrash\Grid\Events\ColumnProcessed;
 
 class AddExtraAttributesToProcessedColumn
 {

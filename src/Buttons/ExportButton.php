@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Buttons;
+namespace Randomwhitetrash\Grid\Buttons;
 
-use Leantony\Grid\HasGridConfigurations;
+use Randomwhitetrash\Grid\HasGridConfigurations;
 
 class ExportButton extends GenericButton
 {

@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Columns;
+namespace Randomwhitetrash\Grid\Columns;
 
 interface GridColumnsInterface
 {

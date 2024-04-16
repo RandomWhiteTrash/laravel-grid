@@ -35,7 +35,7 @@ composer install randomwhitetrash/laravel-grid "4.0.x-dev"
 ## Publish assets
 The grid comes with a config file, CSS assets, JS assets and view files. The command below should allow you to publish them.
 ```php
-php artisan vendor:publish --provider="Leantony\Grid\Providers\GridServiceProvider"
+php artisan vendor:publish --provider="Randomwhitetrash\Grid\Providers\GridServiceProvider"
 ```
 
 > You can also choose to publish the assets and views separately by passing the `--tag` argument to the command.
@@ -236,7 +236,7 @@ For a quick demonstration, be sure to check out the demo [here](http://laravel-g
 ## Updating local JS and CSS assets after package updates
 When the package is updated, it is highly likely that you will also need to update the javascript assets. To do that, run this command below after an update;
 ```php
-php artisan vendor:publish --provider="Leantony\Grid\Providers\GridServiceProvider" --tag=assets --force
+php artisan vendor:publish --provider="Randomwhitetrash\Grid\Providers\GridServiceProvider" --tag=assets --force
 ```
 You can also place this command in composer so that it is executed automatically on each update run. Like this;
 
@@ -245,7 +245,7 @@ You can also place this command in composer so that it is executed automatically
 "post-autoload-dump": [
     "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
     "@php artisan package:discover",
-    "@php artisan vendor:publish --provider=\"Leantony\\Grid\\Providers\\GridServiceProvider\" --tag=assets --force"
+    "@php artisan vendor:publish --provider=\"Randomwhitetrash\\Grid\\Providers\\GridServiceProvider\" --tag=assets --force"
 ]
 ```
 

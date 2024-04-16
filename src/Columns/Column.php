@@ -4,10 +4,10 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Columns;
+namespace Randomwhitetrash\Grid\Columns;
 
 use InvalidArgumentException;
-use Leantony\Grid\Filters\GenericFilter;
+use Randomwhitetrash\Grid\Filters\GenericFilter;
 
 class Column
 {

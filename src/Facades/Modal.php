@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid\Facades;
+namespace Randomwhitetrash\Grid\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

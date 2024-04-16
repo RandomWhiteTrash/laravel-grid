@@ -5,7 +5,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Leantony\Grid;
+namespace Randomwhitetrash\Grid;
 
 class ModalRenderer
 {
