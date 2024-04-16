@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Routing;
+namespace RandomWhiteTrash\Grid\Routing;
 
 trait ConfiguresRoutes
 {

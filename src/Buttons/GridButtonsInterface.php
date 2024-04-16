@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Buttons;
+namespace RandomWhiteTrash\Grid\Buttons;
 
 interface GridButtonsInterface
 {

@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Listeners;
+namespace RandomWhiteTrash\Grid\Listeners;
 
-use Randomwhitetrash\Grid\Events\UserActionRequested;
+use RandomWhiteTrash\Grid\Events\UserActionRequested;
 
 class HandleUserAction
 {

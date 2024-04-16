@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Events;
+namespace RandomWhiteTrash\Grid\Events;
 
-use Randomwhitetrash\Grid\Columns\Column;
+use RandomWhiteTrash\Grid\Columns\Column;
 
 class ColumnProcessed
 {

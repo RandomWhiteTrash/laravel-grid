@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid;
+namespace RandomWhiteTrash\Grid;
 
 use Closure;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -13,17 +13,17 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Randomwhitetrash\Grid\Buttons\GridButtonsInterface;
-use Randomwhitetrash\Grid\Buttons\RendersButtons;
-use Randomwhitetrash\Grid\Columns\CreatesColumns;
-use Randomwhitetrash\Grid\Columns\GridColumnsInterface;
-use Randomwhitetrash\Grid\Events\GridInitialized;
-use Randomwhitetrash\Grid\Events\UserActionRequested;
-use Randomwhitetrash\Grid\Filters\AddsColumnFilters;
-use Randomwhitetrash\Grid\Filters\GridFilterInterface;
-use Randomwhitetrash\Grid\Listeners\DataExportHandler;
-use Randomwhitetrash\Grid\Routing\ConfiguresRoutes;
-use Randomwhitetrash\Grid\Routing\GridRoutesInterface;
+use RandomWhiteTrash\Grid\Buttons\GridButtonsInterface;
+use RandomWhiteTrash\Grid\Buttons\RendersButtons;
+use RandomWhiteTrash\Grid\Columns\CreatesColumns;
+use RandomWhiteTrash\Grid\Columns\GridColumnsInterface;
+use RandomWhiteTrash\Grid\Events\GridInitialized;
+use RandomWhiteTrash\Grid\Events\UserActionRequested;
+use RandomWhiteTrash\Grid\Filters\AddsColumnFilters;
+use RandomWhiteTrash\Grid\Filters\GridFilterInterface;
+use RandomWhiteTrash\Grid\Listeners\DataExportHandler;
+use RandomWhiteTrash\Grid\Routing\ConfiguresRoutes;
+use RandomWhiteTrash\Grid\Routing\GridRoutesInterface;
 
 abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, GridFilterInterface, GridColumnsInterface, GridRoutesInterface
 {
@@ -429,6 +429,10 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
         if ($this->allowsLinkableRows()) {
             throw new InvalidArgumentException("Specify a callback that would return a link for every row of the table.");
         }
+
+        return function () {
+            return null;
+        };
     }
 
     /**

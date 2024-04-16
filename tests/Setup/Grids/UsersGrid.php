@@ -3,7 +3,7 @@
 namespace Tests\Setup\Grids;
 
 use Closure;
-use Randomwhitetrash\Grid\Grid;
+use RandomWhiteTrash\Grid\Grid;
 use Tests\Setup\TestModels\Role;
 
 class UsersGrid extends Grid implements UsersGridInterface
@@ -157,5 +157,14 @@ class UsersGrid extends Grid implements UsersGridInterface
             // return $item->id % 2 === 0 ? 'table-success' : '';
             return "";
         };
+    }
+
+    /**
+     * Render the tabs for the grid
+     *
+     * @return string
+     */
+    public function renderTabs(): string {
+        return '';
     }
 }

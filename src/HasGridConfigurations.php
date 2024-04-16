@@ -4,7 +4,7 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid;
+namespace RandomWhiteTrash\Grid;
 
 trait HasGridConfigurations
 {

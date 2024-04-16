@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use Randomwhitetrash\Grid\GridInterface;
+use RandomWhiteTrash\Grid\GridInterface;
 
 interface {{ name }} extends GridInterface
 {

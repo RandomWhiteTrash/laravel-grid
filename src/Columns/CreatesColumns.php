@@ -4,11 +4,11 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Columns;
+namespace RandomWhiteTrash\Grid\Columns;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Randomwhitetrash\Grid\Events\ColumnProcessed;
+use RandomWhiteTrash\Grid\Events\ColumnProcessed;
 
 trait CreatesColumns
 {

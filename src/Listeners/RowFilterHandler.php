@@ -3,10 +3,10 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Randomwhitetrash\Grid\Listeners;
+namespace RandomWhiteTrash\Grid\Listeners;
 use Illuminate\Http\Request;
-use Randomwhitetrash\Grid\GridInterface;
-use Randomwhitetrash\Grid\GridResources;
+use RandomWhiteTrash\Grid\GridInterface;
+use RandomWhiteTrash\Grid\GridResources;
 class RowFilterHandler
 {
     use GridResources;

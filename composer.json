@@ -44,7 +44,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Randomwhitetrash\\Grid\\": "src/"
+      "RandomWhiteTrash\\Grid\\": "src/"
     }
   },
   "autoload-dev": {
@@ -55,10 +55,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Randomwhitetrash\\Grid\\Providers\\GridServiceProvider"
+        "RandomWhiteTrash\\Grid\\Providers\\GridServiceProvider"
       ],
       "aliases": {
-        "Modal": "Randomwhitetrash\\Grid\\Facades\\Modal"
+        "Modal": "RandomWhiteTrash\\Grid\\Facades\\Modal"
       }
     },
     "branch-alias": {

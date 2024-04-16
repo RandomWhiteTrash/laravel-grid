@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Buttons;
+namespace RandomWhiteTrash\Grid\Buttons;
 
-use Randomwhitetrash\Grid\HasGridConfigurations;
+use RandomWhiteTrash\Grid\HasGridConfigurations;
 
 class ExportButton extends GenericButton
 {

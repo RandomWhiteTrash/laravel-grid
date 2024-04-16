@@ -4,9 +4,9 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Listeners;
+namespace RandomWhiteTrash\Grid\Listeners;
 
-use Randomwhitetrash\Grid\Events\GridInitialized;
+use RandomWhiteTrash\Grid\Events\GridInitialized;
 
 class GridWasInitialized
 {

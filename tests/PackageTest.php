@@ -5,7 +5,7 @@ namespace Tests;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Randomwhitetrash\Grid\Buttons\GenericButton;
+use RandomWhiteTrash\Grid\Buttons\GenericButton;
 use Orchestra\Testbench\TestCase;
 use Tests\Setup\Grids\UsersGrid;
 use Tests\Setup\SharedSetup;

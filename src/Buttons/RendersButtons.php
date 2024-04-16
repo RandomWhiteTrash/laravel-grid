@@ -3,7 +3,7 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Randomwhitetrash\Grid\Buttons;
+namespace RandomWhiteTrash\Grid\Buttons;
 use InvalidArgumentException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;

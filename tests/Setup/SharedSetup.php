@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
-use Randomwhitetrash\Grid\Facades\Modal;
+use RandomWhiteTrash\Grid\Facades\Modal;
 use Tests\Setup\Grids\UsersGrid;
 use Tests\Setup\Grids\UsersGridCustomized;
 use Tests\Setup\TestModels\Role;
@@ -34,7 +34,7 @@ trait SharedSetup
 
     protected function getPackageProviders($app)
     {
-        return [\Randomwhitetrash\Grid\Providers\GridServiceProvider::class];
+        return [\RandomWhiteTrash\Grid\Providers\GridServiceProvider::class];
     }
 
     protected function getPackageAliases($app)

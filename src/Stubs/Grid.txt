@@ -3,7 +3,7 @@
 namespace {{ namespace }};
 
 use Closure;
-use Randomwhitetrash\Grid\Grid;
+use RandomWhiteTrash\Grid\Grid;
 
 class {{ model }}Grid extends Grid implements {{ binding }}
 {

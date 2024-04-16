@@ -3,7 +3,7 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Randomwhitetrash\Grid\Filters;
+namespace RandomWhiteTrash\Grid\Filters;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;

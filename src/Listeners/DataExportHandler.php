@@ -3,20 +3,20 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Randomwhitetrash\Grid\Listeners;
+namespace RandomWhiteTrash\Grid\Listeners;
 use Excel;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Randomwhitetrash\Grid\Export\DefaultExporter;
-use Randomwhitetrash\Grid\Export\ExcelExport;
-use Randomwhitetrash\Grid\Export\ExcelExporter;
-use Randomwhitetrash\Grid\Export\HtmlExport;
-use Randomwhitetrash\Grid\Export\JsonExport;
-use Randomwhitetrash\Grid\Export\PdfExport;
-use Randomwhitetrash\Grid\GridInterface;
-use Randomwhitetrash\Grid\GridResources;
+use RandomWhiteTrash\Grid\Export\DefaultExporter;
+use RandomWhiteTrash\Grid\Export\ExcelExport;
+use RandomWhiteTrash\Grid\Export\ExcelExporter;
+use RandomWhiteTrash\Grid\Export\HtmlExport;
+use RandomWhiteTrash\Grid\Export\JsonExport;
+use RandomWhiteTrash\Grid\Export\PdfExport;
+use RandomWhiteTrash\Grid\GridInterface;
+use RandomWhiteTrash\Grid\GridResources;
 class DataExportHandler
 {
     use GridResources;

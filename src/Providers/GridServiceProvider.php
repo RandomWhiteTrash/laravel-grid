@@ -4,12 +4,12 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace Randomwhitetrash\Grid\Providers;
+namespace RandomWhiteTrash\Grid\Providers;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use Randomwhitetrash\Grid\Commands\GenerateGrid;
-use Randomwhitetrash\Grid\ModalRenderer;
+use RandomWhiteTrash\Grid\Commands\GenerateGrid;
+use RandomWhiteTrash\Grid\ModalRenderer;
 
 class GridServiceProvider extends ServiceProvider
 {
@@ -75,9 +75,9 @@ class GridServiceProvider extends ServiceProvider
     public function registerCustomEvents(): void
     {
         // events
-        Event::listen('grid.fetch_data', 'Randomwhitetrash\\Grid\\Listeners\\HandleUserAction@handle');
-        Event::listen('grid.column_processed', 'Randomwhitetrash\\Grid\\Listeners\\AddExtraAttributesToProcessedColumn@handle');
-        Event::listen('grid.initialized', 'Randomwhitetrash\\Grid\\Listeners\\GridWasInitialized@handle');
+        Event::listen('grid.fetch_data', 'RandomWhiteTrash\\Grid\\Listeners\\HandleUserAction@handle');
+        Event::listen('grid.column_processed', 'RandomWhiteTrash\\Grid\\Listeners\\AddExtraAttributesToProcessedColumn@handle');
+        Event::listen('grid.initialized', 'RandomWhiteTrash\\Grid\\Listeners\\GridWasInitialized@handle');
     }
 
     /**

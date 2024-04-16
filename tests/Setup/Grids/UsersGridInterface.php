@@ -2,7 +2,7 @@
 
 namespace Tests\Setup\Grids;
 
-use Randomwhitetrash\Grid\GridInterface;
+use RandomWhiteTrash\Grid\GridInterface;
 
 interface UsersGridInterface extends GridInterface
 {

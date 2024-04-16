@@ -4,12 +4,12 @@
  * @author Antony [leantony] Chacha
  */
 
-namespace randomwhitetrash\Grid\Listeners;
+namespace RandomWhiteTrash\Grid\Listeners;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Randomwhitetrash\Grid\GridInterface;
-use Randomwhitetrash\Grid\GridResources;
+use RandomWhiteTrash\Grid\GridInterface;
+use RandomWhiteTrash\Grid\GridResources;
 
 class SortDataHandler
 {

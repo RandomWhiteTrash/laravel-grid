@@ -3,7 +3,7 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Randomwhitetrash\Grid\Buttons;
+namespace RandomWhiteTrash\Grid\Buttons;
 use Illuminate\Contracts\Support\Htmlable;
 use InvalidArgumentException;
 use Illuminate\Support\Arr;
@@ -351,12 +351,12 @@ class GenericButton implements Htmlable
         return $this->attributes;
     }
     /**
-     * @param array $dataAttributes
+     * @param array $attributes
      * @return GenericButton
      */
     public function setAttributes(array $attributes): GenericButton
     {
-        $this->attributes = $dataAttributes;
+        $this->attributes = $attributes;
         return $this;
     }
     /**

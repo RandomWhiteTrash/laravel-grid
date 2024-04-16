@@ -3,12 +3,12 @@
  * Copyright (c) 2018.
  * @author Antony [leantony] Chacha
  */
-namespace Randomwhitetrash\Grid\Commands;
+namespace RandomWhiteTrash\Grid\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
-use Randomwhitetrash\Grid\HasGridConfigurations;
+use RandomWhiteTrash\Grid\HasGridConfigurations;
 use Illuminate\Support\Arr;
 class GenerateGrid extends Command
 {

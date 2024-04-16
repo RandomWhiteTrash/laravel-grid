@@ -4,7 +4,7 @@ namespace Tests\Setup\Grids;
 
 use Closure;
 use Illuminate\Support\Arr;
-use Randomwhitetrash\Grid\Grid;
+use RandomWhiteTrash\Grid\Grid;
 use Tests\Setup\TestModels\Role;
 
 class UsersGridCustomized extends Grid implements UsersGridInterface
@@ -175,5 +175,14 @@ class UsersGridCustomized extends Grid implements UsersGridInterface
             // e.g, to add a success class to specific table rows;
             return $item->id % 2 === 0 ? 'table-success' : '';
         };
+    }
+
+    /**
+     * Render the tabs for the grid
+     *
+     * @return string
+     */
+    public function renderTabs(): string {
+        return '';
     }
 }
