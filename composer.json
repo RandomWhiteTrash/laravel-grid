@@ -55,10 +55,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "RandomWhiteTrash\\Grid\\Providers\\GridServiceProvider"
+        "Randomwhitetrash\\Grid\\Providers\\GridServiceProvider"
       ],
       "aliases": {
-        "Modal": "RandomWhiteTrash\\Grid\\Facades\\Modal"
+        "Modal": "Randomwhitetrash\\Grid\\Facades\\Modal"
       }
     },
     "branch-alias": {
