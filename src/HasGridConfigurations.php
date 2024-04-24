@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 namespace RandomWhiteTrash\Grid;
@@ -164,7 +164,7 @@ trait HasGridConfigurations
     public function getGridTemplateView(): string
     {
         if ($this->gridTemplateView === null) {
-            $this->gridTemplateView = config('grid.templates.view', 'leantony::grid.templates.bs4-card');
+            $this->gridTemplateView = config('grid.templates.view', 'randomwhitetrash::grid.templates.bs4-card');
         }
         return $this->gridTemplateView;
     }
@@ -188,7 +188,7 @@ trait HasGridConfigurations
     public function getGridView(): string
     {
         if ($this->gridView === null) {
-            $this->gridView = config('grid.view', 'leantony::grid.grid');
+            $this->gridView = config('grid.view', 'randomwhitetrash::grid.grid');
         }
         return $this->gridView;
     }
@@ -293,8 +293,8 @@ trait HasGridConfigurations
     {
         if ($this->paginationView === null) {
             $this->paginationView = !$this->gridNeedsSimplePagination()
-                ? config('grid.pagination.default', 'leantony::grid.pagination.default')
-                : config('grid.pagination.simple', 'leantony::grid.pagination.simple');
+                ? config('grid.pagination.default', 'randomwhitetrash::grid.pagination.default')
+                : config('grid.pagination.simple', 'randomwhitetrash::grid.pagination.simple');
         }
         return $this->paginationView;
     }
@@ -336,7 +336,7 @@ trait HasGridConfigurations
     public function getGridSearchView(): string
     {
         if ($this->searchView === null) {
-            $this->searchView = config('grid.search.view', 'leantony::grid.search');
+            $this->searchView = config('grid.search.view', 'randomwhitetrash::grid.search');
         }
         return $this->searchView;
     }
@@ -368,7 +368,7 @@ trait HasGridConfigurations
     public function getGridExportView(): string
     {
         if ($this->exportView === null) {
-            $this->exportView = config('grid.export.view', 'leantony::reports.report');
+            $this->exportView = config('grid.export.view', 'randomwhitetrash::reports.report');
         }
         return $this->exportView;
     }

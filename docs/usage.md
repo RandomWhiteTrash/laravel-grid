@@ -130,7 +130,7 @@ Be sure to also include the necessary javascript and css assets on your layout. 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
     <!-- date picker (required if you need date picker & date range filters) -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
-    <!-- grid's css (required) - add href as => asset('vendor/leantony/grid/css/grid.css') -->
+    <!-- grid's css (required) - add href as => asset('vendor/randomwhitetrash/grid/css/grid.css') -->
     <link rel="stylesheet" type="text/css" href="" />
 </head>
 <body>
@@ -150,7 +150,7 @@ Be sure to also include the necessary javascript and css assets on your layout. 
 </div>
 
 <!-- modal container (required if you need to render dynamic bootstrap modals) -->
-@include('leantony::modal.container')
+@include('randomwhitetrash::modal.container')
 
 <!-- progress bar js (not required, but cool) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -166,8 +166,8 @@ Be sure to also include the necessary javascript and css assets on your layout. 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js"></script>
 <!-- datepicker js (required for datepickers) -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<!-- required to supply js functionality for the grid - add href as => asset('vendor/leantony/grid/js/grid.js') -->
-<script src="{{ asset('vendor/leantony/grid/js/grid.js') }}"></script>
+<!-- required to supply js functionality for the grid - add href as => asset('vendor/randomwhitetrash/grid/js/grid.js') -->
+<script src="{{ asset('vendor/randomwhitetrash/grid/js/grid.js') }}"></script>
 <script>
     // send csrf token (see https://laravel.com/docs/5.6/csrf#csrf-x-csrf-token) - this is required
     $.ajaxSetup({

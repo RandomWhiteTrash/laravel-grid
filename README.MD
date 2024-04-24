@@ -2,10 +2,10 @@
 
 Live demo: [here](http://laravel-grid.herokuapp.com/)
 
-[![Build Status](https://travis-ci.org/leantony/laravel-grid.svg?branch=master)](https://travis-ci.org/leantony/laravel-grid)
-[![Latest Stable Version](https://poser.pugx.org/leantony/laravel-grid/v/stable)](https://packagist.org/packages/leantony/laravel-grid)
-[![Latest Unstable Version](https://poser.pugx.org/leantony/laravel-grid/v/unstable)](https://packagist.org/packages/leantony/laravel-grid)
-[![Total Downloads](https://poser.pugx.org/leantony/laravel-grid/downloads)](https://packagist.org/packages/leantony/laravel-grid)
+[![Build Status](https://travis-ci.org/randomwhitetrash/laravel-grid.svg?branch=master)](https://travis-ci.org/randomwhitetrash/laravel-grid)
+[![Latest Stable Version](https://poser.pugx.org/randomwhitetrash/laravel-grid/v/stable)](https://packagist.org/packages/randomwhitetrash/laravel-grid)
+[![Latest Unstable Version](https://poser.pugx.org/randomwhitetrash/laravel-grid/v/unstable)](https://packagist.org/packages/randomwhitetrash/laravel-grid)
+[![Total Downloads](https://poser.pugx.org/randomwhitetrash/laravel-grid/downloads)](https://packagist.org/packages/randomwhitetrash/laravel-grid)
 
 This package allows rendering of data via a tabular format (grid). The grid uses bootstrap classes to style the `table` elements. Icons used are from `font-awesome`, and most of the functionality is insipred by the yii2's framework's gridview widget.
 
@@ -62,7 +62,7 @@ Be sure to also include the necessary javascript and css assets on your layout. 
     <!-- date picker (required if you need date picker & date range filters) -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css"/>
     <!-- grid's css (required) -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/leantony/grid/css/grid.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/randomwhitetrash/grid/css/grid.css') }}" />
 </head>
 <body>
 
@@ -81,7 +81,7 @@ Be sure to also include the necessary javascript and css assets on your layout. 
 </div>
 
 <!-- modal container (required if you need to render dynamic bootstrap modals) -->
-@include('leantony::modal.container')
+@include('randomwhitetrash::modal.container')
 
 <!-- progress bar js (not required, but cool) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
@@ -98,7 +98,7 @@ Be sure to also include the necessary javascript and css assets on your layout. 
 <!-- datepicker js (required for datepickers) -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <!-- required to supply js functionality for the grid -->
-<script src="{{ asset('vendor/leantony/grid/js/grid.js') }}"></script>
+<script src="{{ asset('vendor/randomwhitetrash/grid/js/grid.js') }}"></script>
 <script>
     // send csrf token (see https://laravel.com/docs/5.6/csrf#csrf-x-csrf-token) - this is required
     $.ajaxSetup({
@@ -231,7 +231,7 @@ To display your grid, simply add this to your view. Or any appropriate variable 
 ```php
 {!! $grid !!}
 ```
-For a quick demonstration, be sure to check out the demo [here](http://laravel-grid.herokuapp.com/). The demo's source code is also [available on github](https://github.com/leantony/laravel-grid-app).
+For a quick demonstration, be sure to check out the demo [here](http://laravel-grid.herokuapp.com/). The demo's source code is also [available on github](https://github.com/randomwhitetrash/laravel-grid-app).
 
 ## Updating local JS and CSS assets after package updates
 When the package is updated, it is highly likely that you will also need to update the javascript assets. To do that, run this command below after an update;

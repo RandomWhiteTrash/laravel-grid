@@ -1,10 +1,10 @@
 {
   "name": "randomwhitetrash/laravel-grid",
-  "description": "A grid view for laravel, inspired by the yii2 grid widget. Based on the leantony/laravel-grid package.",
+  "description": "A grid view for laravel, inspired by the yii2 grid widget. Based on the randomwhitetrash/laravel-grid package.",
   "license": "MIT",
   "type": "library",
   "keywords": [
-    "leantony",
+    "randomwhitetrash",
     "random-white-trash",
     "bootstrap",
     "laravel-grid",

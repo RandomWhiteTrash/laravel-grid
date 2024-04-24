@@ -169,7 +169,7 @@ Need to make a button appear to the far right/left of another?. This is how you 
         ]);
     }
 ```
-> It's actually a simple sort on the collection of the buttons based on the `$position` attribute. [see here](https://github.com/leantony/laravel-grid/blob/63d4160701aec0268277a5d9e698408c2e9b9375/src/Grid.php#L522-L536)
+> It's actually a simple sort on the collection of the buttons based on the `$position` attribute. [see here](https://github.com/randomwhitetrash/laravel-grid/blob/63d4160701aec0268277a5d9e698408c2e9b9375/src/Grid.php#L522-L536)
 
 
 ### Enforcing access to a button based on the data item

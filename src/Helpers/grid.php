@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 if (!function_exists('add_query_param')) {

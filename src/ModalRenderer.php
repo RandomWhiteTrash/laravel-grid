@@ -2,7 +2,7 @@
 
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 namespace RandomWhiteTrash\Grid;
@@ -31,7 +31,7 @@ class ModalRenderer
     public function start(array $data)
     {
         $merged = array_merge($this->defaults, $data);
-        return view('leantony::modal.modal-partial-start', ['modal' => $merged]);
+        return view('randomwhitetrash::modal.modal-partial-start', ['modal' => $merged]);
     }
 
     /**
@@ -44,6 +44,6 @@ class ModalRenderer
     public function end($data = [])
     {
         $merged = array_merge($this->defaults, $data);
-        return view('leantony::modal.modal-partial-end', ['modal' => $merged]);
+        return view('randomwhitetrash::modal.modal-partial-end', ['modal' => $merged]);
     }
 }

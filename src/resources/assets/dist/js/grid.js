@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 'use strict';

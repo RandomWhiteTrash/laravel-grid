@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 namespace RandomWhiteTrash\Grid\Providers;
@@ -22,7 +22,7 @@ class GridServiceProvider extends ServiceProvider
     {
         $this->loadHelpers();
 
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'leantony');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'randomwhitetrash');
 
         $this->loadPackageConfig();
 
@@ -98,12 +98,12 @@ class GridServiceProvider extends ServiceProvider
     public function loadPackageAssets(): void
     {
         $this->publishes([
-            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/leantony')
+            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/randomwhitetrash')
         ], 'views');
 
         // only publish compiled assets
         $this->publishes([
-            __DIR__ . '/../resources/assets/dist' => base_path('public/vendor/leantony/grid')
+            __DIR__ . '/../resources/assets/dist' => base_path('public/vendor/randomwhitetrash/grid')
         ], 'assets');
     }
 

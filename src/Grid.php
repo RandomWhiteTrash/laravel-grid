@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 namespace RandomWhiteTrash\Grid;
@@ -46,7 +46,7 @@ abstract class Grid implements Htmlable, GridInterface, GridButtonsInterface, Gr
      *
      * @var string
      */
-    protected $id = 'grid-leantony';
+    protected $id = 'grid-randomwhitetrash';
 
     /**
      * The name of the grid

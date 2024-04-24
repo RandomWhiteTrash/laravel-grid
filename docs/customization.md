@@ -82,7 +82,7 @@ return [
         /**
          * The view used to display a search form
          */
-        'view' => 'leantony::grid.search'
+        'view' => 'randomwhitetrash::grid.search'
     ],
 
     /**
@@ -140,12 +140,12 @@ return [
         /**
          * The view used to render default pagination.
          */
-        'default' => 'leantony::grid.pagination.default',
+        'default' => 'randomwhitetrash::grid.pagination.default',
 
         /**
          * The view used to render simple pagination.
          */
-        'simple' => 'leantony::grid.pagination.simple'
+        'simple' => 'randomwhitetrash::grid.pagination.simple'
     ],
 
     /**
@@ -172,7 +172,7 @@ The resources provided are also highly customizable. These are published as usua
 ```php
 php artisan vendor:publish --provider="RandomWhiteTrash\Grid\Providers\GridServiceProvider" --tag="views"
 ```
-These will be copied to `resources/views/vendor/leantony/grid`. From there, you can change what you want and laravel will automatically use that, instead of the one from the package.
+These will be copied to `resources/views/vendor/randomwhitetrash/grid`. From there, you can change what you want and laravel will automatically use that, instead of the one from the package.
 > Just do not delete the variables / functions, as that might break the functionality!!
 
 # Advanced customization

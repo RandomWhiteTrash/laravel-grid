@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 namespace RandomWhiteTrash\Grid\Filters;
 use Illuminate\Contracts\Support\Htmlable;
@@ -58,7 +58,7 @@ class GenericFilter implements Htmlable
      *
      * @var string
      */
-    protected $formId = 'leantony-grid-filter';
+    protected $formId = 'randomwhitetrash-grid-filter';
     /**
      * The data to be used for filtering. Essential if the element is a dropdown
      *
@@ -141,11 +141,11 @@ class GenericFilter implements Htmlable
             case 'text':
                 // all filters apart from dropdowns are rendered as text elements.
                 // css classes or js libraries can be used to change this
-                return view('leantony::grid.filters.text', $this->compactData(
+                return view('randomwhitetrash::grid.filters.text', $this->compactData(
                     Arr::collapse(func_get_args())
                 ))->render();
             case 'select':
-                return view('leantony::grid.filters.dropdown', $this->compactData(
+                return view('randomwhitetrash::grid.filters.dropdown', $this->compactData(
                     Arr::collapse(func_get_args())
                 ))->render();
             default:

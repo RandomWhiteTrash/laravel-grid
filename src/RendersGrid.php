@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 namespace RandomWhiteTrash\Grid;
@@ -217,7 +217,7 @@ trait RendersGrid
      */
     public function renderPaginationInfoAtHeader()
     {
-        return view('leantony::grid.pagination.pagination-info', [
+        return view('randomwhitetrash::grid.pagination.pagination-info', [
             'grid'      => $this,
             'direction' => 'right'
         ])->render();
@@ -231,7 +231,7 @@ trait RendersGrid
      */
     public function renderPaginationInfoAtFooter()
     {
-        return view('leantony::grid.pagination.pagination-info', [
+        return view('randomwhitetrash::grid.pagination.pagination-info', [
             'grid'      => $this,
             'direction' => 'left',
             'atFooter'  => true
@@ -246,7 +246,7 @@ trait RendersGrid
      */
     public function renderPaginationLinksSection()
     {
-        return view('leantony::grid.pagination.pagination-links', [
+        return view('randomwhitetrash::grid.pagination.pagination-links', [
             'grid' => $this,
         ])->render();
     }
@@ -259,7 +259,7 @@ trait RendersGrid
      */
     public function renderGridFilters()
     {
-        return view('leantony::grid.filter', [
+        return view('randomwhitetrash::grid.filter', [
             'grid'    => $this,
             'columns' => $this->getProcessedColumns(),
             'formId'  => $this->getFilterFormId()

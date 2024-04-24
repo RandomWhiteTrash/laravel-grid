@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 
 /**
@@ -95,7 +95,7 @@ return [
         /**
          * The view used to display a search form
          */
-        'view' => 'leantony::grid.search'
+        'view' => 'randomwhitetrash::grid.search'
     ],
 
     /**
@@ -153,12 +153,12 @@ return [
         /**
          * The view used to render default pagination.
          */
-        'default' => 'leantony::grid.pagination.default',
+        'default' => 'randomwhitetrash::grid.pagination.default',
 
         /**
          * The view used to render simple pagination.
          */
-        'simple' => 'leantony::grid.pagination.simple'
+        'simple' => 'randomwhitetrash::grid.pagination.simple'
     ],
 
     /**
@@ -187,6 +187,6 @@ return [
         /**
          * The view to use for the templates
          */
-        'view' => 'leantony::grid.templates.bs4-card'
+        'view' => 'randomwhitetrash::grid.templates.bs4-card'
     ]
 ];

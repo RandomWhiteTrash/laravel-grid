@@ -44,7 +44,7 @@ The grid's configuration allows you to change the grid's template to your own cu
         /**
          * The view to use for the templates
          */
-        'view' => 'leantony::grid.templates.bs4-card'
+        'view' => 'randomwhitetrash::grid.templates.bs4-card'
     ]
 ```
 If you need per grid customization of the above, you can call the `withCustomTemplate` function when creating your grid. Like this;

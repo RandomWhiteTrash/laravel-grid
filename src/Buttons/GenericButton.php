@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 namespace RandomWhiteTrash\Grid\Buttons;
 use Illuminate\Contracts\Support\Htmlable;
@@ -436,6 +436,6 @@ class GenericButton implements Htmlable
      */
     public function getButtonView(): string
     {
-        return 'leantony::grid.buttons.button';
+        return 'randomwhitetrash::grid.buttons.button';
     }
 }

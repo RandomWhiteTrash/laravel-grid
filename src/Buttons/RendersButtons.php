@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright (c) 2018.
- * @author Antony [leantony] Chacha
+ * @author Bruno Michalski, Antony Chacha
  */
 namespace RandomWhiteTrash\Grid\Buttons;
 use InvalidArgumentException;
@@ -142,7 +142,7 @@ trait RendersButtons
             'class' => 'btn btn-secondary',
             'title' => 'export data',
             'renderCustom' => function ($data) {
-                return view('leantony::grid.buttons.export', $data)->render();
+                return view('randomwhitetrash::grid.buttons.export', $data)->render();
             },
             'gridId' => $this->getId(),
             'type' => static::$TYPE_TOOLBAR,

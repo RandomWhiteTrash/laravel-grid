@@ -21,7 +21,7 @@ Add this to your layout. Just some basic setup.
 // .. layout code
 
 // .. other javascript assets, e.g Jquery, bootstrap, Pjax, etc
-<script src="{{ asset('vendor/leantony/grid/js/grid.js') }}"></script>
+<script src="{{ asset('vendor/randomwhitetrash/grid/js/grid.js') }}"></script>
 <script>
     // ensure the CSRF header is sent in an AJAX request.
     $.ajaxSetup({
@@ -41,7 +41,7 @@ This is a simple laravel view that comes with the grid installation. It will ser
 <div class="container">
     @yield('content')
 </div>
-@include('leantony::modal.container')
+@include('randomwhitetrash::modal.container')
 // .. layout code
 ```
 

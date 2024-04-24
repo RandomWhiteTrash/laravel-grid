@@ -230,7 +230,7 @@ class PackageTest extends TestCase
         // using custom template
         $grid = $this->getGridInstances()['users_default'];
         /** @var $grid UsersGrid */
-        $grid->withCustomTemplate('leantony::grid.templates.dummy');
+        $grid->withCustomTemplate('randomwhitetrash::grid.templates.dummy');
         $content = $grid->render();
         // default layout uses a bootstrap4 card
         $this->assertContains("dummy", $content);

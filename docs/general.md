@@ -1,4 +1,4 @@
-The grid consists both rows and columns - but of course, since it's all but a HTML table. And just like the `buttons`, also the rows and columns can be customized. But first, they have to be added to the grid. If you used the command available to generate the grid, some of your model columns should already be there. Below are sample columns from a generated grid copied from the [sample app's code](https://github.com/leantony/laravel-grid-app/blob/6e96abdb7c1d5c9616d6913752a7f21ccfc65c45/app/Grids/UsersGrid.php#L44);
+The grid consists both rows and columns - but of course, since it's all but a HTML table. And just like the `buttons`, also the rows and columns can be customized. But first, they have to be added to the grid. If you used the command available to generate the grid, some of your model columns should already be there. Below are sample columns from a generated grid copied from the [sample app's code](https://github.com/randomwhitetrash/laravel-grid-app/blob/6e96abdb7c1d5c9616d6913752a7f21ccfc65c45/app/Grids/UsersGrid.php#L44);
 ```php
      /**
      * Set the columns to be displayed.
@@ -45,7 +45,7 @@ The grid consists both rows and columns - but of course, since it's all but a HT
 The array is an associative array, and the keys and values define how the grid columns are rendered.
 
 # Keys
-The `keys` represent the model's attributes (actual DB columns). You are actually free to add your own custom attributes, but just ensure that you also define a custom method to render the data. See the section below on [the `data` attribute](https://github.com/leantony/laravel-grid/wiki/Customize-columns#data).
+The `keys` represent the model's attributes (actual DB columns). You are actually free to add your own custom attributes, but just ensure that you also define a custom method to render the data. See the section below on [the `data` attribute](https://github.com/randomwhitetrash/laravel-grid/wiki/Customize-columns#data).
 
 ## Values
 The `values` represent customizable attributes that control how the data item for that model attribute will be rendered. This will be discussed below.

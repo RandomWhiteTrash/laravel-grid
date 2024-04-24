@@ -1,7 +1,7 @@
 {
   "name": "laravel_grid",
   "version": "3.0.0",
-  "description": "Laravel data grid inspired by the yii2 gridview. Based on the leantony/laravel-grid package.",
+  "description": "Laravel data grid inspired by the yii2 gridview. Based on the randomwhitetrash/laravel-grid package.",
   "main": "none",
   "directories": {
     "doc": "docs",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leantony/laravel-grid.git"
+    "url": "git+https://github.com/randomwhitetrash/laravel-grid.git"
   },
   "keywords": [
     "laravel",
