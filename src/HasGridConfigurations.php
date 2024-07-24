@@ -316,6 +316,9 @@ trait HasGridConfigurations
     {
         if ($this->paginationSize === null) {
             $this->paginationSize = config('grid.pagination.default_size', 15);
+            if (!empty($this->pagination['size'])) {
+                $this->paginationSize = $this->pagination['size'];
+            }
         }
         return $this->paginationSize;
     }
