@@ -41,7 +41,12 @@ trait GridResources
     /**
      * @var array
      */
-    protected $args;
+    protected array $args;
+
+    /**
+     * @var array
+     */
+    protected array $pagination;
 
     /**
      * Get the query builder
