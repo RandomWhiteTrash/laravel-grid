@@ -100,8 +100,8 @@ trait RendersButtons
             'showModal' => true,
             'type' => static::$TYPE_TOOLBAR,
             'icon' => 'fa-plus-circle',
-            'url' => $this->getCreateUrl(['ref' => $this->getId()]),
-            'title' => __("Add new {name}", ['name' => $this->shortSingularGridName()]),
+            'url' => $this->getCreateUrl($this->getCreateRouteParams()),
+            'title' => __("Add new :name", ['name' => $this->shortSingularGridName()]),
             'renderIf' => function () {
                 return in_array('create', $this->buttonsToGenerate);
             }
@@ -171,7 +171,7 @@ trait RendersButtons
             'title' => 'view record',
             'url' => function ($gridName, $item) {
                 return $this->getViewUrl([
-                    $gridName => $item->{$this->getDefaultRouteParameter()}, 'ref' => $this->getId()
+                    $item->{$this->getDefaultRouteParameter()}, 'ref' => $this->getId()
                 ]);
             },
             'renderIf' => function ($gridName, $item) {
@@ -202,7 +202,7 @@ trait RendersButtons
             ],
             'url' => function ($gridName, $item) {
                 return route($this->getDeleteRouteName(), [
-                    $gridName => $item->{$this->getDefaultRouteParameter()}, 'ref' => $this->getId()
+                    $item->{$this->getDefaultRouteParameter()}, 'ref' => $this->getId()
                 ]);
             },
             'renderIf' => function ($gridName, $item) {

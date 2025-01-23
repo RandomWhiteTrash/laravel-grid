@@ -474,8 +474,6 @@ var _grids = _grids || {};
             /**
              * Show a modal dialog dynamically
              */
-
-
             _createClass(modal, [{
                 key: 'show',
                 value: function show() {
@@ -484,22 +482,28 @@ var _grids = _grids || {};
                         var btn = $(this);
                         var btnHtml = btn.html();
                         var modalDialog = $('#bootstrap_modal');
-                        var modalSize = btn.data('modal-size');
-                        var modalBackdrop = btn.data('modal-backdrop');
                         // show spinner as soon as user click is triggered
                         btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
-
                         // load the modal into the container put on the html
-                        $('.modal-content').load($(this).attr('href') || $(this).data('href'), function () {
-                            // show the modal
-                            $('#bootstrap_modal').modal({show: true});
-                            // alter size
-                            if (modalSize) {
-                                $('.modal-content').parent('div').addClass(modalSize);
+                        let content = $('.modal-content');
+                        content.load($(this).attr('href') || $(this).data('href'), function () {
+                            //Choose backdrop
+                            let modalBackdrop = content.find('input[name=modal_backdrop]');
+                            let backdrop = true;
+
+                            if (modalBackdrop.length > 0 && modalBackdrop.val() === 'static') {
+                                backdrop = 'static';
                             }
-                            // alter backdrop
-                            if (modalBackdrop) {
-                                $('.modal-content').parent('div').attr('data-backdrop', modalBackdrop);
+
+                            // show the modal
+                            $('#bootstrap_modal').modal({show: true, backdrop: backdrop});
+
+                            // set modal size
+                            let modalSize = content.find('input[name=modal_size]');
+                            if (modalSize.length > 0) {
+                                let sizeDiv = content.parent('div');
+                                sizeDiv.removeClass('modal-lg');
+                                sizeDiv.addClass('modal-' + modalSize.val());
                             }
 
                         });

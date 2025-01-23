@@ -88,6 +88,8 @@ This is pretty straightforward. You're only writing code to load the form you've
             'title' => 'Your modal title or empty for auto generation based on action and model',
             // to prevent rendering of a modal footer
             'footer-render' => false //true by default
+            'size' => 'lg', //Size of the modal : sm, md, lg to xl
+            'backdrop'       => 'static', //Or empty if you dont want a static behaviour
             // or just its buttons
             'footer-content' => '' //your own HTML to replace the footer content with
         ];
@@ -122,10 +124,6 @@ public function configureButtons()
     // editing the view button
     $this->editToolbarButton('create', [
        'showModal' => true,
-       'dataAttributes => [
-            // to optionally change the size of the modal. see https://getbootstrap.com/docs/4.0/components/modal/#optional-sizes
-           'modal-size' => 'modal-sm',
-       ]
     ]);
 }
 ```

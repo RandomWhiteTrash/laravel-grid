@@ -19,6 +19,9 @@ trait ConfiguresRoutes
      * @var array
      */
     protected $indexRouteParams = [];
+    protected $createRouteParams = [];
+    protected $updateRouteParams = [];
+    protected $deleteRouteParams = [];
 
     /**
      * Route name for the create route
@@ -95,6 +98,16 @@ trait ConfiguresRoutes
         $this->indexRouteParams = $indexRouteParams;
     }
 
+    public function getCreateRouteParams(): array
+    {
+        return $this->createRouteParams;
+    }
+
+    public function setCreateRouteParams(array $createRouteParams): void
+    {
+        $this->createRouteParams = $createRouteParams;
+    }
+
     /**
      * @return string
      */
@@ -156,7 +169,7 @@ trait ConfiguresRoutes
      */
     public function getCreateUrl(array $params = []): string
     {
-        return route($this->getCreateRouteName(), add_query_param($params));
+         return route($this->getCreateRouteName(), add_query_param($params));
     }
 
     /**
@@ -197,6 +210,11 @@ trait ConfiguresRoutes
         return route($this->getViewRouteName(), add_query_param($params));
     }
 
+    public function setViewRouteParams(array $viewRouteParams): void
+    {
+        $this->viewRouteParams = $viewRouteParams;
+    }
+
     /**
      * @return string
      */
@@ -211,6 +229,11 @@ trait ConfiguresRoutes
     public function setUpdateRouteName(string $updateRouteName): void
     {
         $this->updateRouteName = $updateRouteName;
+    }
+
+    public function setUpdateRouteParams(array $updateRouteParams): void
+    {
+        $this->updateRouteParams = $updateRouteParams;
     }
 
     /**
@@ -245,6 +268,11 @@ trait ConfiguresRoutes
     public function setDeleteRouteName(string $deleteRouteName): void
     {
         $this->deleteRouteName = $deleteRouteName;
+    }
+
+    public function setDeleteRouteParams(array $deleteRouteParams): void
+    {
+        $this->deleteRouteParams = $deleteRouteParams;
     }
 
     /**

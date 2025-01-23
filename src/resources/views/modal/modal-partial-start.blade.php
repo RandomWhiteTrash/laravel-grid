@@ -1,5 +1,7 @@
 <!-- Modal Header -->
 <div class="modal-header">
+    <input type="hidden" name="modal_size" value="{{ $modal['size'] ?? 'lg' }}">
+    <input type="hidden" name="modal_backdrop" value="{{ $modal['backdrop'] ?? '' }}">
     <h4 class="modal-title">{{ !empty($modal['title']) ? $modal['title'] : (ucwords($modal['action'] . ' '. class_basename($modal['model']))) }}</h4>
     <button type="button" class="close" data-dismiss="modal">&times;</button>
 </div>

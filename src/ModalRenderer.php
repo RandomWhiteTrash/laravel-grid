@@ -18,6 +18,8 @@ class ModalRenderer
         'footer-content' => '',
         'method'         => 'POST',
         'action'         => '',
+        'size'           => 'lg',
+        'backdrop'       => 'static',
         'title'          => ''
     ];
 

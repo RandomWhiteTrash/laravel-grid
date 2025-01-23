@@ -5,9 +5,32 @@
 
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+var _createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor)
+        descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps)
+      defineProperties(Constructor.prototype, protoProps);
+    if (staticProps)
+      defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
 
 var _grids = _grids || {};
 
@@ -35,7 +58,8 @@ var _grids = _grids || {};
      */
     _grids.utils.handleAjaxRequest = function (element, event, options) {
       event = event || 'click';
-      if (element.length < 1) return;
+      if (element.length < 1)
+        return;
 
       element.each(function (i, obj) {
         obj = $(obj);
@@ -69,7 +93,7 @@ var _grids = _grids || {};
             },
             success: function success(data) {
               if (pjaxContainer) {
-                $.pjax.reload({ container: pjaxContainer });
+                $.pjax.reload({container: pjaxContainer});
               }
             },
             error: function error(data) {
@@ -95,7 +119,7 @@ var _grids = _grids || {};
         elements.each(function (i, obj) {
           var el = $(obj);
           var link = el.data('url');
-          el.css({ 'cursor': 'pointer' });
+          el.css({'cursor': 'pointer'});
           el.click(function (e) {
             setTimeout(function () {
               window.location = link;
@@ -157,7 +181,8 @@ var _grids = _grids || {};
             /**
              * Something to do once the PJAX request has been finished
              */
-            afterPjax: function afterPjax(e) {}
+            afterPjax: function afterPjax(e) {
+            }
           }
         };
         this.opts = $.extend({}, defaults, opts || {});
@@ -199,6 +224,42 @@ var _grids = _grids || {};
 
           setupDateRangePicker(this);
         }
+
+        /**
+         * Pjax per row filter
+         */
+
+      }, {
+        key: 'filter',
+        value: function filter() {
+          var _this3 = this;
+
+          var form = $(this.opts.filterForm);
+
+          if (form.length > 0) {
+            $(document).on('submit', this.opts.filterForm, function (event) {
+              $.pjax.submit(event, _this3.opts.id, _this3.opts.pjax.pjaxOptions);
+            });
+          }
+        }
+
+        /**
+         * Pjax search
+         */
+
+      }, {
+        key: 'search',
+        value: function search() {
+          var _this4 = this;
+
+          var form = $(this.opts.searchForm);
+
+          if (form.length > 0) {
+            $(document).on('submit', this.opts.searchForm, function (event) {
+              $.pjax.submit(event, _this4.opts.id, _this4.opts.pjax.pjaxOptions);
+            });
+          }
+        }
       }]);
 
       return grid;
@@ -209,7 +270,6 @@ var _grids = _grids || {};
      *
      * @param instance
      */
-
 
     function setupDateRangePicker(instance) {
       if (instance.opts.dateRangeSelector) {
@@ -249,6 +309,8 @@ var _grids = _grids || {};
     _grids.grid.init = function (options) {
       var obj = new grid(options);
       obj.bindPjax();
+      obj.search();
+      obj.filter();
     };
   })(jQuery);
 
@@ -291,7 +353,6 @@ var _grids = _grids || {};
       }
     },
 
-
     /**
      * process validation errors from json to html
      * @param response
@@ -304,7 +365,6 @@ var _grids = _grids || {};
       });
       return errorsHtml;
     },
-
 
     /**
      * Form submission from a modal dialog
@@ -338,20 +398,26 @@ var _grids = _grids || {};
               setTimeout(function () {
                 window.location = response.redirectTo;
               }, response.redirectTimeout || 500);
-            } else {
-              // hide the modal after 1000 ms
-              setTimeout(function () {
-                modal.modal('hide');
-                if (pjaxTarget) {
-                  // reload a pjax container
-                  $.pjax.reload({ container: pjaxTarget });
-                }
-              }, 500);
+            } else if (response.callback) {
+              if (typeof callback === 'function') {
+                callback();
+              }
             }
+
+            // hide the modal after 1000 ms
+            setTimeout(function () {
+              modal.modal('hide');
+              if (pjaxTarget) {
+                // reload a pjax container
+                $.pjax.reload({container: pjaxTarget});
+              }
+            }, 500);
+
           } else {
             // display message and hide modal
             var el = $(notification);
             el.html(_this.renderAlert('error', response.message));
+
             setTimeout(function () {
               modal.modal('hide');
             }, 500);
@@ -368,15 +434,21 @@ var _grids = _grids || {};
           // error handling
           switch (data.status) {
             case 500:
-              msg = _this.renderAlert('error', { serverError: { message: "An error occurred on the server." } });
+              // display error 500
+              msg = _this.renderAlert('error', {serverError: {message: "An error occurred on the server."}});
+              var el = $('#' + notification);
+              el.html(msg);
               break;
             default:
+              // display validation errors
               msg = _this.renderAlert('error', data.responseJSON);
+              $('.invalid-feedback').remove();
+              for (const property in data.responseJSON.errors) {
+                $(`.modal *[name="${property}"]`).addClass('is-invalid').after(`<small class="invalid-feedback">${data.responseJSON.errors[property]}</small>`);
+              }
+
               break;
           }
-          // display errors
-          var el = $('#' + notification);
-          el.html(msg);
         }
       });
     }
@@ -402,8 +474,6 @@ var _grids = _grids || {};
       /**
        * Show a modal dialog dynamically
        */
-
-
       _createClass(modal, [{
         key: 'show',
         value: function show() {
@@ -412,18 +482,30 @@ var _grids = _grids || {};
             var btn = $(this);
             var btnHtml = btn.html();
             var modalDialog = $('#bootstrap_modal');
-            var modalSize = btn.data('modal-size');
             // show spinner as soon as user click is triggered
             btn.attr('disabled', 'disabled').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;loading');
-
             // load the modal into the container put on the html
-            $('.modal-content').load($(this).attr('href') || $(this).data('href'), function () {
-              // show the modal
-              $('#bootstrap_modal').modal({ show: true, backdrop: 'static' });
-              // alter size
-              if (modalSize) {
-                $('.modal-content').parent('div').addClass(modalSize);
+            let content = $('.modal-content');
+            content.load($(this).attr('href') || $(this).data('href'), function () {
+              //Choose backdrop
+              let modalBackdrop = content.find('input[name=modal_backdrop]');
+              let backdrop = true;
+
+              if (modalBackdrop.length > 0 && modalBackdrop.val() === 'static') {
+                backdrop = 'static';
               }
+
+              // show the modal
+              $('#bootstrap_modal').modal({show: true, backdrop: backdrop});
+
+              // set modal size
+              let modalSize = content.find('input[name=modal_size]');
+              if (modalSize.length > 0) {
+                let sizeDiv = content.parent('div');
+                sizeDiv.removeClass('modal-lg');
+                sizeDiv.addClass('modal-' + modalSize.val());
+              }
+
             });
 
             // revert button to original content, once the modal is shown
@@ -484,9 +566,14 @@ var _grids = _grids || {};
     // initialize modal js
     _grids.modal.init({});
     // table links
-    _grids.utils.tableLinks({ element: '.linkable', navigationDelay: 100 });
+    _grids.utils.tableLinks({element: '.linkable', navigationDelay: 100});
     // setup ajax listeners
     _grids.utils.handleAjaxRequest($('.data-remote'), 'click', {});
+
+    $(document).on('focus', '.modal .is-invalid', function () {
+      $(this).removeClass('is-invalid');
+      $(this).closest('.invalid-feedback').remove();
+    });
   };
 
   return _grids;
